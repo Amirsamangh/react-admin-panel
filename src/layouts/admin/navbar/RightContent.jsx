@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AdminContext } from "../../../context/adminLayoutContext";
 
 const Rightcontent = () => {
+  const {setShowSidebar} = useContext(AdminContext);
   return (
     <div className="right_content h-100 py-1 bg-dark">
       <a className="navbar-brand h-100" href="/">
@@ -11,6 +13,8 @@ const Rightcontent = () => {
           id="handle_toggle_sidemenu"
           className="form-check-input pointer"
           type="checkbox"
+
+          onChange={(e)=>setShowSidebar(e.target.checked)}
         />
       </div>
     </div>
