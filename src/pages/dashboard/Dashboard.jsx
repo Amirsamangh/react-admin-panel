@@ -4,15 +4,15 @@ import Card from './Card';
 
 const Dashboard = () => {
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const labels = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+    //     const labels = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
 
-        const datapoints = [0, 20, 20, 60, 60, 120, 180, 120, 125, 105, 110, 170];
+    //     const datapoints = [0, 20, 20, 60, 60, 120, 180, 120, 125, 105, 110, 170];
 
-        setDashboardChart(labels, datapoints);
+    //     setDashboardChart(labels, datapoints);
 
-    }, []);
+    // }, []);
 
     return (
         <div>
