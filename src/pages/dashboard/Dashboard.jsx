@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { setDashboardChart } from '../../utils/dasboardChart';
 import Card from './Card';
+import ProductTable from './ProductTable';
 
 const Dashboard = () => {
 
@@ -76,51 +77,54 @@ const Dashboard = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>دسته شماره فلان</td>
-                                    <td>محصول فلان</td>
-                                    <td>پایان یافته</td>
-                                    <td>
-                                        <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="نادیده گرفتن" data-bs-toggle="tooltip" data-bs-placement="top"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>دسته شماره فلان</td>
-                                    <td>محصول فلان</td>
-                                    <td>رو به اتمام - 4</td>
-                                    <td>
-                                        <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="نادیده گرفتن" data-bs-toggle="tooltip" data-bs-placement="top"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>دسته شماره فلان</td>
-                                    <td>محصول فلان</td>
-                                    <td>پایان یافته</td>
-                                    <td>
-                                        <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="نادیده گرفتن" data-bs-toggle="tooltip" data-bs-placement="top"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>دسته شماره فلان</td>
-                                    <td>محصول فلان</td>
-                                    <td>پایان یافته</td>
-                                    <td>
-                                        <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="نادیده گرفتن" data-bs-toggle="tooltip" data-bs-placement="top"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>دسته شماره فلان</td>
-                                    <td>محصول فلان</td>
-                                    <td>رو به اتمام - 2</td>
-                                    <td>
-                                        <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="نادیده گرفتن" data-bs-toggle="tooltip" data-bs-placement="top"></i>
-                                    </td>
-                                </tr>
+
+                                <ProductTable
+                                id= {1}
+                                chart='دسته شماره یک'
+                                product= 'محصول اول'
+                                finished= "پایان یافته"
+                                icon= 'fas fa-times'
+                                />
+   
+                                <ProductTable
+                                id= {2}
+                                chart='دسته شماره یک'
+                                product= 'محصول دوم'
+                                finished= "پایان یافته"
+                                icon= 'fas fa-times'
+                                />
+
+                                <ProductTable
+                                id= {3}
+                                chart='دسته شماره یک'
+                                product= 'محصول سوم'
+                                finished= "تنها 1 عدد در انبار"
+                                icon= 'fas fa-times'
+                                />
+
+                                <ProductTable
+                                id= {4}
+                                chart='دسته شماره دو'
+                                product= 'محصول چهارم'
+                                finished= "پایان یافته"
+                                icon= 'fas fa-times'
+                                />
+
+                                <ProductTable
+                                id= {5}
+                                chart='دسته شماره دو'
+                                product= 'محصول پنجم'
+                                finished= "پایان یافته"
+                                icon= 'fas fa-times'
+                                />
+
+                                <ProductTable
+                                id= {6}
+                                chart='دسته شماره سه'
+                                product= 'محصول ششم'
+                                finished= "تنها 2 عدد در انبار"
+                                icon= 'fas fa-times'
+                                />
 
                             </tbody>
                         </table>

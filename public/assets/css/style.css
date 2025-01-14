@@ -18,6 +18,14 @@ body{
     /* box-sizing: content-box */
 }
 
+.modal-backdrop.fade {
+    display: none !important;
+}
+
+.navbar.fixed-top {
+    z-index: unset !important;
+}
+
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
