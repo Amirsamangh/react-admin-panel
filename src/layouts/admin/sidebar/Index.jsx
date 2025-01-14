@@ -7,12 +7,12 @@ import SidebarItem from "./SidebarItem";
 const Index = () => {
   const {showSidebar} = useContext(AdminContext);
   return (
-    <section id="sidebar_section">
-      <div className={`mini_sidebar collapsedd bg-dark h-100 ${showSidebar ? 'expanded' : null}`}>
-        <div className="p-0 m-0">
+    <section id="sidebar_section" className="">
+      <div className={` overflow-scroll mini_sidebar collapsedd bg-dark h-100 ${showSidebar ? 'expanded' : null}`}>
+        <div className="p-0 m-0 fa-scroll">
 
           <Avatar
-          name='امیرسامان قره چاهی'
+          name='امیرسامان'
           imagePath="/assets/images/avatar/user4.jpg"
           />
 
