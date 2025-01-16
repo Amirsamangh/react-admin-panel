@@ -7,7 +7,7 @@ import SidebarItem from "./SidebarItem";
 const Index = () => {
   const {showSidebar} = useContext(AdminContext);
   return (
-    <section id="sidebar_section" className="">
+    <section id="sidebar_section">
       <div className={` overflow-scroll mini_sidebar collapsedd bg-dark h-100 ${showSidebar ? 'expanded' : null}`}>
         <div className="p-0 m-0 fa-scroll">
 
