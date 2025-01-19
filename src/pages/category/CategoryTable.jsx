@@ -32,7 +32,25 @@ const CategoryTable = () => {
             stock: "7",
             like_count: "190",
             status: "1",
-        }
+        },
+        {
+            id: "4",
+            category: "Xiaomi",
+            title: "15T Pro",
+            price: "$500",
+            stock: "7",
+            like_count: "45",
+            status: "1",
+        },
+        {
+            id: "5",
+            category: "Samsung",
+            title: "A55",
+            price: "$300",
+            stock: "7",
+            like_count: "70",
+            status: "1",
+        },
 
 
     ]
@@ -144,23 +162,23 @@ const CategoryTable = () => {
         //             </tr>
         //         </tbody>
         //     </table>
-        //     <nav aria-label="Page navigation example" className="d-flex justify-content-center">
-        //         <ul className="pagination dir_ltr">
-        //             <li className="page-item">
-        //                 <a className="page-link" href="#" aria-label="Previous">
-        //                     <span aria-hidden="true">&raquo;</span>
-        //                 </a>
-        //             </li>
-        //             <li className="page-item"><a className="page-link" href="#">1</a></li>
-        //             <li className="page-item"><a className="page-link" href="#">2</a></li>
-        //             <li className="page-item"><a className="page-link" href="#">3</a></li>
-        //             <li className="page-item">
-        //                 <a className="page-link" href="#" aria-label="Next">
-        //                     <span aria-hidden="true">&laquo;</span>
-        //                 </a>
-        //             </li>
-        //         </ul>
-        //     </nav>
+            // <nav aria-label="Page navigation example" className="d-flex justify-content-center">
+            //     <ul className="pagination dir_ltr">
+            //         <li className="page-item">
+            //             <a className="page-link" href="#" aria-label="Previous">
+            //                 <span aria-hidden="true">&raquo;</span>
+            //             </a>
+            //         </li>
+            //         <li className="page-item"><a className="page-link" href="#">1</a></li>
+            //         <li className="page-item"><a className="page-link" href="#">2</a></li>
+            //         <li className="page-item"><a className="page-link" href="#">3</a></li>
+            //         <li className="page-item">
+            //             <a className="page-link" href="#" aria-label="Next">
+            //                 <span aria-hidden="true">&laquo;</span>
+            //             </a>
+            //         </li>
+            //     </ul>
+            // </nav>
         // </div>
     );
 }
