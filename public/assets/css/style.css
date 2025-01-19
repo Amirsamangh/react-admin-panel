@@ -30,6 +30,11 @@ body{
     z-index: unset !important;
 }
 
+.disabaled {
+    pointer-events: none !important;
+    opacity: 0.5;
+}
+
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
