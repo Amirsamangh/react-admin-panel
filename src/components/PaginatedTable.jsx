@@ -89,7 +89,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
 
 
                         <li className="page-item">
-                            <span className={`page-link pointer ${currentPage === 1 ? 'disabaled' : ''}`} href="/" aria-label="Previous" onClick={() => setCurrentPage(currentPage - 1)}>
+                            <span className={`page-link pointer ${currentPage === 1 ? 'disabaled' : ''}`} href="#" aria-label="Previous" onClick={() => setCurrentPage(currentPage - 1)}>
                                 <span aria-hidden="true">&raquo;</span>
                             </span>
                         </li>
@@ -102,7 +102,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
 
 
                         <li className="page-item">
-                            <span className={`page-link pointer ${currentPage === pageConut ? 'disabaled' : ''}`} href="/" aria-label="Next" onClick={() => setCurrentPage(currentPage + 1)}>
+                            <span className={`page-link pointer ${currentPage === pageConut ? 'disabaled' : ''}`} href="#" aria-label="Next" onClick={() => setCurrentPage(currentPage + 1)}>
                                 <span aria-hidden="true">&laquo;</span>
                             </span>
                         </li>
