@@ -25,33 +25,33 @@ const Index = () => {
 
           <SidebarItem targetPth='/categories' icon='fas fa-stream' title='مدیریت گروه محصول' />
           <SidebarItem targetPth='/products' icon='fas fa-cube' title='مدیریت محصول' />
-          <SidebarItem targetPth='/test' icon='fas fa-copyright' title='مدیریت برند ها' />
-          <SidebarItem targetPth='/test' icon='fas fa-pagelines' title='مدیریت گارانتی ها' />
-          <SidebarItem targetPth='/test' icon='fas fa-palette' title='مدیریت رنگ ها' />
-          <SidebarItem targetPth='/test' icon='fas fa-percentage' title='مدیریت تخفیف ها' />
+          <SidebarItem targetPth='/colors' icon='fas fa-palette' title='مدیریت رنگ ها' />
+          <SidebarItem targetPth='/guaranties' icon='fab fa-pagelines' title='مدیریت گارانتی ها' />
+          <SidebarItem targetPth='/brands' icon='fas fa-copyright' title='مدیریت برند ها' />
+          <SidebarItem targetPth='/discounts' icon='fas fa-percentage' title='مدیریت تخفیف ها' />
 
           {/* <!-- =================================== --> */}
 
           <SidebarGroupTitile title='سفارشات و سبد خرید'/>
 
-          <SidebarItem targetPth='/test' icon='fas fa-shopping-basket' title='مدیریت سبد ها' />
-          <SidebarItem targetPth='/test' icon='fas fa-luggage-cart' title='مدیریت سفارشات' />
-          <SidebarItem targetPth='/test' icon='fas fa-truck-loading' title='مدیریت نحوه ارسال' />
+          <SidebarItem targetPth='/carts' icon='fas fa-shopping-basket' title='مدیریت سبد ها' />
+          <SidebarItem targetPth='/orders' icon='fas fa-luggage-cart' title='مدیریت سفارشات' />
+          <SidebarItem targetPth='/deliverires' icon='fas fa-truck-loading' title='مدیریت نحوه ارسال' />
           
           {/* <!-- =================================== --> */}
 
           <SidebarGroupTitile title='کاربران و همکاران'/>
 
-          <SidebarItem targetPth='/test' icon='fas fa-users' title='مشاهده کاربران' />
-          <SidebarItem targetPth='/test' icon='fas fa-user-tag' title='نقش ها' />
-          <SidebarItem targetPth='/test' icon='fas fa-shield-alt' title='مجوز ها' />
+          <SidebarItem targetPth='/users' icon='fas fa-users' title='مشاهده کاربران' />
+          <SidebarItem targetPth='/roles' icon='fas fa-user-tag' title='نقش ها' />
+          <SidebarItem targetPth='/permissions' icon='fas fa-shield-alt' title='مجوز ها' />
           
           {/* <!-- =================================== --> */}
 
           <SidebarGroupTitile title='ارتباطات'/>
 
-          <SidebarItem targetPth='/test' icon='fas fa-question-circle' title='سوال ها' />
-          <SidebarItem targetPth='/test' icon='fas fa-comment' title='نظرات' />
+          <SidebarItem targetPth='/questions' icon='fas fa-question-circle' title='سوال ها' />
+          <SidebarItem targetPth='/comments' icon='fas fa-comment' title='نظرات' />
 
         </div>
       </div>

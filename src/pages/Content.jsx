@@ -4,6 +4,18 @@ import Category from './category/Category';
 import Product from './product/Product';
 import Dashboard from './dashboard/Dashboard';
 import { Route, Routes } from 'react-router-dom';
+import Color from './color/Color';
+import Guarantee from './guarantee/Guarantee';
+import Brand from './brand/Brand';
+import Discount from './discount/Discount';
+import Cart from './cart/Cart';
+import Order from './order/Order';
+import Delivery from './delivery/Delivery';
+import Users from './users/Users';
+import Role from './role/Role';
+import Permissions from './permissions/Permissions';
+import Comments from './comments/Comments';
+import Question from './question/Question';
 
 const Content = () => {
 
@@ -14,8 +26,20 @@ const Content = () => {
           className={`bg-light py-3 px-3 ${showSidebar ? "with_sidebar" : null}`}>
             <Routes>
               <Route path='/' element={<Dashboard/>}/>
-              <Route path='/Categories' element={<Category/>}/>
-              <Route path='/Products' element={<Product/>}/>
+              <Route path='/categories' element={<Category/>}/>
+              <Route path='/products' element={<Product/>}/>
+              <Route path='/colors' element={<Color/>}/>
+              <Route path='/guaranties' element={<Guarantee/>}/>
+              <Route path='/brands' element={<Brand/>}/>
+              <Route path='/discounts' element={<Discount/>}/>
+              <Route path='/carts' element={<Cart/>}/>
+              <Route path='/orders' element={<Order/>}/>
+              <Route path='/deliverires' element={<Delivery/>}/>
+              <Route path='/users' element={<Users/>}/>
+              <Route path='/roles' element={<Role/>}/>
+              <Route path='/permissions' element={<Permissions/>}/>
+              <Route path='/comments' element={<Comments/>}/>
+              <Route path='/questions' element={<Question/>}/>
 
               <Route path='*' element={<Dashboard/>}/>
             </Routes>
