@@ -1,14 +1,16 @@
 import React from 'react';
 
-const RoleTable = () => {
+const CartsTable = () => {
     return (
         <>
             <table className="table table-responsive text-center table-hover table-bordered">
                 <thead className="table-secondary">
                     <tr>
                         <th>#</th>
-                        <th>عنوان</th>
-                        <th>توضیحات</th>
+                        <th>آی دی مشتری</th>
+                        <th>نام مشتری</th>
+                        <th>تاریخ</th>
+                        <th>مبلغ کل سبد</th>
                         <th>وضعیت</th>
                         <th>عملیات</th>
                     </tr>
@@ -16,17 +18,14 @@ const RoleTable = () => {
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>نقش شماره 1</td>
-                        <td>توضیحات در مورد این نقش که چیست و کلیات آن کدام است</td>
+                        <td>50</td>
+                        <td>امیرسامان قره چاهی</td>
+                        <td>1400/07/15</td>
+                        <td>100هزار تومان</td>
+                        <td>فعال</td>
                         <td>
-                            <div className="form-check form-switch d-flex justify-content-center align-items-center p-0 h-100">
-                                <label className="form-check-label pointer" htmlFor="flexSwitchCheckDefault">فعال</label>
-                                <input className="form-check-input pointer mx-3" type="checkbox" id="flexSwitchCheckDefault" />
-                            </div>
-                        </td>
-                        <td>
-                            <i className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip" title="ویرایش نقش" data-bs-toggle="modal" data-bs-placement="top" data-bs-target="#add_role_modal"></i>
-                            <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="حذف نقش" data-bs-toggle="tooltip" data-bs-placement="top"></i>
+                            <i className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip" title="ویرایش و جزئیات سبد" data-bs-toggle="modal" data-bs-placement="top" data-bs-target="#edit_cart_modal"></i>
+                            <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="حذف سبد" data-bs-toggle="tooltip" data-bs-placement="top"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -52,4 +51,4 @@ const RoleTable = () => {
     );
 }
 
-export default RoleTable;
+export default CartsTable;

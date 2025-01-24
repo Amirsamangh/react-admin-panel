@@ -1,4 +1,5 @@
 import React from 'react';
+import OrderDetails from './OrderDetails';
 
 const OrderTable = () => {
     return (
@@ -24,7 +25,7 @@ const OrderTable = () => {
                         <td>1400/07/15</td>
                         <td>100هزار تومان</td>
                         <td>
-                            <i className="fas fa-shopping-cart text-info mx-1 hoverable_text pointer has_tooltip" title="  جزئیات سفارش" data-bs-toggle="modal" data-bs-placement="top" data-bs-target="#order_details_modal"></i>
+                            <OrderDetails/>
                             <i className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" title="حذف سفارش" data-bs-toggle="tooltip" data-bs-placement="top"></i>
                         </td>
                     </tr>

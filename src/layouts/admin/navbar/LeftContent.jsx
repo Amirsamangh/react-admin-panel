@@ -14,30 +14,30 @@ const Leftcontent = () => {
         aria-labelledby="dropdownMenuButton1"
       >
         <li className="my-2">
-          <a href="/" className="dropdown-item d-block text-center">امیرسامان قره چاهی</a>
+          <a className="dropdown-item d-block text-center">قاسم بساکی</a>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-tachometer-alt"></i>
-          <a className="dropdown-item" href="/">
+          <a className="dropdown-item" href="#">
             داشبورد
           </a>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-paper-plane"></i>
-          <a className="dropdown-item" href="/">
+          <a className="dropdown-item" href="#">
             تیکت ها
           </a>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-envelope"></i>
-          <a className="dropdown-item" href="/">
+          <a className="dropdown-item" href="#">
             پیام ها
           </a>
         </li>
         <hr />
         <li className="d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-power-off"></i>
-          <a className="dropdown-item" href="/">
+          <a className="dropdown-item" href="#">
             خروج
           </a>
         </li>
