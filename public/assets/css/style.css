@@ -38,6 +38,27 @@ body{
     user-select: none;
 }
 
+.waiting_center {
+    position: fixed;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: opacityChange;
+    animation-iteration-count: infinite;
+    animation-duration: 0.8s;
+}
+
+@keyframes opacityChange {
+    0% {opacity: 1;}
+    50% {opacity: 0.2;}
+    100% {opacity: 1;}
+}
+
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
