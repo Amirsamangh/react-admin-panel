@@ -34,6 +34,9 @@ body{
     pointer-events: none !important;
     opacity: 0.5;
 }
+.select_none {
+    user-select: none;
+}
 
 
 /* scrollbars ------------------ */
