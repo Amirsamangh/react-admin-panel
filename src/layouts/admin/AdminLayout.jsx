@@ -7,7 +7,7 @@ import { toggleSidebar } from "../../utils/initialDoms";
 import Navbar from "./navbar/Index";
 import Sidebar from "./sidebar/Index";
 
-const Index = () => {
+const AdminLayout = () => {
   useEffect(()=>{
     // require('../../assets/js/toggleSidebar')
     // toggleSidebar();
@@ -23,4 +23,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default AdminLayout;
