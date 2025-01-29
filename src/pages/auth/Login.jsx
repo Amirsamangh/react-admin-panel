@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { FastField, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import AuthFormikControl from '../../components/authForm/AuthFormikControl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '../../utils/alerts';
 
 
 const initialValues = {
@@ -12,19 +14,24 @@ const initialValues = {
     remember: false,
 
 }
-const onSubmit = (values , navigate) => {
-    axios.post('https://ecomadminapi.azhadev.ir/api/auth/login', {
+const onSubmit = (values , submitMethods , navigate) => {
+    console.log(submitMethods);
+    
+    axios.post('http://ecomadminapi.azhadev.ir/api/auth/login', {
         ...values,
         remember: values.remember ? 1 : 0
     }).then(res => {
         console.log(res);
-        if ( res.status == 200 ) {
-            console.log(res);
-            
+        if ( res.status === 200 ) {            
             localStorage.setItem('loginToken' , JSON.stringify(res.data));
             navigate('/')
+        } else {
+            Alert ( "متاسفم ..!" ,  res.data.message ,  "error" )
         }
-        
+        submitMethods.setSubmitting(false)
+    }).catch(error=>{
+        submitMethods.setSubmitting(false)
+        Alert('متاسفم ..!' , 'متاسفانه مشکلی از سمت سرور رخ داده' , 'error')
     })
 }
 const validationSchema = Yup.object({
@@ -41,7 +48,7 @@ const Login = () => {
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={(values)=>onSubmit(values , navigate)}
+            onSubmit={(values , submitMethods)=>onSubmit(values, submitMethods, navigate)}
             validationSchema={validationSchema}
         >
             {
@@ -50,7 +57,7 @@ const Login = () => {
                     return (
                         <div className="wrap-login100">
                             <Form className="login100-form validate-form pos-relative d-flex flex-column align-items-center justify-content-center">
-                                <span className="login100-form-title">
+                                <span className="login100-form-title text-white user-select-none">
                                     ورود اعضا
                                 </span>
 
@@ -92,8 +99,8 @@ const Login = () => {
                                 </div> */}
 
                                 <div className="container-login100-form-btn">
-                                    <button className="login100-form-btn">
-                                        ورود
+                                    <button className="login100-form-btn" disabled={formik.isSubmitting}>
+                                        {formik.isSubmitting ? 'صبر کنید ...' : 'ورود'}
                                     </button>
                                 </div>
 

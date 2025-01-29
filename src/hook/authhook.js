@@ -11,7 +11,7 @@ export const useIsLogin = () => {
         if (loginToken) {
             axios.get('https://ecomadminapi.azhadev.ir/api/auth/user', {
                 headers: {
-                    'Authorization': `Bearer ${loginToken.token}`
+                    Authorization: `Bearer ${loginToken.token}`
                 }
             })
                 .then(res => {

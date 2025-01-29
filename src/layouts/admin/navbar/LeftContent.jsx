@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Leftcontent = () => {
   return (
@@ -37,9 +38,9 @@ const Leftcontent = () => {
         <hr />
         <li className="d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-power-off"></i>
-          <a className="dropdown-item" href="#">
+          <Link to={'/logout'} className="dropdown-item">
             خروج
-          </a>
+          </Link>
         </li>
       </ul>
       <i className="far fa-bell fa-2x mx-3 pointer position-relative">
