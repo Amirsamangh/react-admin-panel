@@ -5,17 +5,20 @@ import { getCategoriesService } from '../../services/category';
 import { Alert } from '../../utils/alerts';
 import ShowInMenu from './tableAddition/showInMenu';
 import Actions from './tableAddition/Actions';
+import { useLocation, useParams } from 'react-router-dom';
 
 const CategoryTable = () => {
 
     const [data, setData] = useState([]);
 
+    const params = useParams();
+    const location = useLocation()
+
     const handleGetCategories = async () => {
         try {
-            const res = await getCategoriesService()
+            const res = await getCategoriesService(params.categoryId)
 
             if (res.status == 200) {
-                console.log(res.data);
                 setData(res.data.data)
 
             } else {
@@ -29,7 +32,7 @@ const CategoryTable = () => {
 
     useEffect(() => {
         handleGetCategories();
-    }, []);
+    }, [params]);
 
     const dataInfo = [
         { field: 'id', title: '#' },
@@ -61,6 +64,15 @@ const CategoryTable = () => {
     return (
 
         <>
+
+        {location.state ? (
+            <h5 className='text-center'>
+                <span>زیرگروه : </span>
+                <span className='text-danger'>{location.state.parentData.title}</span>
+            </h5>
+        ) : null }
+            
+
             <PaginatedTable data={data} dataInfo={dataInfo} additionalFieald={additionalFieald} searchParams={searchParams} numOfPages={8}>
                 <Addcategory />
             </PaginatedTable>
