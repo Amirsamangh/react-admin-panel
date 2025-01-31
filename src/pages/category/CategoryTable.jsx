@@ -63,7 +63,6 @@ const CategoryTable = () => {
     ]
 
     const additionalElements = (itemId) => {
-        console.log(itemId);
         
         return (
             <>

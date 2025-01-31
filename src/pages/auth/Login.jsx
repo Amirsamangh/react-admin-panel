@@ -6,6 +6,8 @@ import AuthFormikControl from '../../components/authForm/AuthFormikControl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '../../utils/alerts';
+import httpService from '../../services/httpService.js';
+import { loginService } from '../../services/auth.js';
 
 
 const initialValues = {
@@ -13,27 +15,24 @@ const initialValues = {
     password: "",
     remember: false,
 
-}
-const onSubmit = (values , submitMethods , navigate) => {
-    console.log(submitMethods);
-    
-    axios.post('http://ecomadminapi.azhadev.ir/api/auth/login', {
-        ...values,
-        remember: values.remember ? 1 : 0
-    }).then(res => {
-        console.log(res);
-        if ( res.status === 200 ) {            
+};
+const onSubmit = async (values , submitMethods , navigate) => {
+    try {
+        const res = await loginService(values)
+        if ( res.status == 200 ) {            
             localStorage.setItem('loginToken' , JSON.stringify(res.data));
             navigate('/')
         } else {
             Alert ( "متاسفم ..!" ,  res.data.message ,  "error" )
         }
         submitMethods.setSubmitting(false)
-    }).catch(error=>{
+    } catch {
         submitMethods.setSubmitting(false)
         Alert('متاسفم ..!' , 'متاسفانه مشکلی از سمت سرور رخ داده' , 'error')
-    })
-}
+        console.log(onSubmit);
+        
+    }
+};
 const validationSchema = Yup.object({
     phone: Yup.number().required('لطفا این قسمت را پر کنید'),
     password: Yup
@@ -53,7 +52,6 @@ const Login = () => {
         >
             {
                 formik => {
-                    console.log(formik);
                     return (
                         <div className="wrap-login100">
                             <Form className="login100-form validate-form pos-relative d-flex flex-column align-items-center justify-content-center">
