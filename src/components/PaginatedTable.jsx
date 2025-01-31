@@ -28,7 +28,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
     useEffect(() => {
         setInitData(data.filter(d => d[searchParams.searchField].includes(searchChar)))
         setCurrentPage(1)
-    }, [searchChar])
+    }, [searchChar , data])
 
     return (
         <div>
@@ -60,11 +60,9 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
                         {dataInfo.map(i => (
                             <th key={i.field}>{i.title}</th>
                         ))}
-                        {
-                            additionalFieald ? (
-                                <th>{additionalFieald.title}</th>
-                            ) : null
-                        }
+                        {additionalFieald ? additionalFieald.map((a , index)=>(
+                            <th key={a.id + '__' + index}>{a.title}</th>
+                        )) : null}
                     </tr>
                 </thead>
                 <tbody>
@@ -73,10 +71,9 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
                             {dataInfo.map(i => (
                                 <td key={i.field + '_' + d.id}>{d[i.field]}</td>
                             ))}
-                            {
-                                additionalFieald ? (
-                                    <td>{additionalFieald.elements(d.id)}</td>
-                                ) : null
+                            { additionalFieald ? additionalFieald.map((a , index)=>(
+                                <td key={a.id + '___' + index}>{a.elements(d)}</td>
+                            )) : null
                             }
                         </tr>
                     ))}

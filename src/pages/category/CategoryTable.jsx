@@ -1,110 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PaginatedTable from '../../components/PaginatedTable';
 import Addcategory from './AddCategory';
+import { getCategoriesService } from '../../services/category';
+import { Alert } from '../../utils/alerts';
+import ShowInMenu from './tableAddition/showInMenu';
+import Actions from './tableAddition/Actions';
 
 const CategoryTable = () => {
 
-    const data = [
-        {
-            id: "1",
-            category: "Samsung",
-            title: "galaxy s25 ultra",
-            price: "$1200",
-            stock: "5",
-            like_count: "150",
-            status: "1",
-        },
+    const [data, setData] = useState([]);
 
-        {
-            id: "2",
-            category: "Apple",
-            title: "iphone 16 pro max",
-            price: "$1400",
-            stock: "7",
-            like_count: "190",
-            status: "1",
-        },
+    const handleGetCategories = async () => {
+        try {
+            const res = await getCategoriesService()
 
-        {
-            id: "3",
-            category: "Apple",
-            title: "iphone 15 pro max",
-            price: "$1100",
-            stock: "7",
-            like_count: "190",
-            status: "1",
-        },
-        {
-            id: "4",
-            category: "Xiaomi",
-            title: "15T Pro",
-            price: "$500",
-            stock: "7",
-            like_count: "45",
-            status: "1",
-        },
-        {
-            id: "5",
-            category: "Samsung",
-            title: "A55",
-            price: "$300",
-            stock: "7",
-            like_count: "70",
-            status: "1",
-        },
+            if (res.status == 200) {
+                console.log(res.data);
+                setData(res.data.data)
 
+            } else {
+                Alert('مشکلی', res.data.message, 'error')
+            }
+        } catch (error) {
+            Alert('مشکلی', 'مشکلی از سمت سرور رخ داده است ', 'error')
 
-    ]
+        }
+    }
+
+    useEffect(() => {
+        handleGetCategories();
+    }, []);
 
     const dataInfo = [
         { field: 'id', title: '#' },
         { field: 'title', title: 'عنوان محصول' },
-        { field: 'price', title: 'قیمت محصول' },
+        { field: 'parent_id', title: 'والد' },
+        { field: 'created_at', title: 'تاریخ' },
     ]
 
-    const additionalElements = (itemId) => {
-        
-        return (
-            <>
-                <i 
-                    className="fas fa-project-diagram text-info mx-1 hoverable_text pointer has_tooltip" 
-                    title="زیرمجموعه" 
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"
-                ></i>
-                <i 
-                    className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip" 
-                    title="ویرایش دسته" 
-                    data-bs-toggle="modal" 
-                    data-bs-placement="top"
-                    data-bs-target='#add_product_category_modal'
-                ></i>
-                <i 
-                    className="fas fa-plus text-success mx-1 hoverable_text pointer has_tooltip" 
-                    title="افزودن ویژگی" 
-                    data-bs-placement="top" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#add_product_category_attr_modal"
-                ></i>
-                <i 
-                    className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip" 
-                    title="حذف دسته" 
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"
-                ></i>
-            </>
-        )
-    }
 
-    const additionalFieald = {
-        title: 'عملیات',
-        elements: (itemId) => additionalElements(itemId)
-    }
+    const additionalFieald = [
+        {
+            title: 'نمایش در منو',
+            elements: (rowData) => <ShowInMenu rowData={rowData}/>
+        },
+        
+        {
+            title: 'عملیات',
+            elements: (rowData) => <Actions rowData={rowData}/>
+        }
+
+    ]
 
     const searchParams = {
-        title : 'جستجو',
-        placeholder : 'قسمتی از عنوان را وارد کنید',
-        searchField : 'title',
+        title: 'جستجو',
+        placeholder: 'قسمتی از عنوان را وارد کنید',
+        searchField: 'title',
     }
 
     return (
@@ -171,23 +122,23 @@ const CategoryTable = () => {
         //             </tr>
         //         </tbody>
         //     </table>
-            // <nav aria-label="Page navigation example" className="d-flex justify-content-center">
-            //     <ul className="pagination dir_ltr">
-            //         <li className="page-item">
-            //             <a className="page-link" href="#" aria-label="Previous">
-            //                 <span aria-hidden="true">&raquo;</span>
-            //             </a>
-            //         </li>
-            //         <li className="page-item"><a className="page-link" href="#">1</a></li>
-            //         <li className="page-item"><a className="page-link" href="#">2</a></li>
-            //         <li className="page-item"><a className="page-link" href="#">3</a></li>
-            //         <li className="page-item">
-            //             <a className="page-link" href="#" aria-label="Next">
-            //                 <span aria-hidden="true">&laquo;</span>
-            //             </a>
-            //         </li>
-            //     </ul>
-            // </nav>
+        // <nav aria-label="Page navigation example" className="d-flex justify-content-center">
+        //     <ul className="pagination dir_ltr">
+        //         <li className="page-item">
+        //             <a className="page-link" href="#" aria-label="Previous">
+        //                 <span aria-hidden="true">&raquo;</span>
+        //             </a>
+        //         </li>
+        //         <li className="page-item"><a className="page-link" href="#">1</a></li>
+        //         <li className="page-item"><a className="page-link" href="#">2</a></li>
+        //         <li className="page-item"><a className="page-link" href="#">3</a></li>
+        //         <li className="page-item">
+        //             <a className="page-link" href="#" aria-label="Next">
+        //                 <span aria-hidden="true">&laquo;</span>
+        //             </a>
+        //         </li>
+        //     </ul>
+        // </nav>
         // </div>
     );
 }
