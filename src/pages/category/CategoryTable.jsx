@@ -5,7 +5,8 @@ import { getCategoriesService } from '../../services/category';
 import { Alert } from '../../utils/alerts';
 import ShowInMenu from './tableAddition/showInMenu';
 import Actions from './tableAddition/Actions';
-import { useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { convertDateToLalali } from '../../utils/convertDate';
 
 const CategoryTable = () => {
 
@@ -38,19 +39,23 @@ const CategoryTable = () => {
         { field: 'id', title: '#' },
         { field: 'title', title: 'عنوان محصول' },
         { field: 'parent_id', title: 'والد' },
-        { field: 'created_at', title: 'تاریخ' },
     ]
 
 
     const additionalFieald = [
         {
-            title: 'نمایش در منو',
-            elements: (rowData) => <ShowInMenu rowData={rowData}/>
+            title: 'تاریخ',
+            elements: (rowData) => convertDateToLalali(rowData.created_at)
         },
-        
+
+        {
+            title: 'نمایش در منو',
+            elements: (rowData) => <ShowInMenu rowData={rowData} />
+        },
+
         {
             title: 'عملیات',
-            elements: (rowData) => <Actions rowData={rowData}/>
+            elements: (rowData) => <Actions rowData={rowData} />
         }
 
     ]
@@ -64,18 +69,18 @@ const CategoryTable = () => {
     return (
 
         <>
-
-        {location.state ? (
-            <h5 className='text-center'>
-                <span>زیرگروه : </span>
-                <span className='text-danger'>{location.state.parentData.title}</span>
-            </h5>
-        ) : null }
             
+            <Outlet/>
 
-            <PaginatedTable data={data} dataInfo={dataInfo} additionalFieald={additionalFieald} searchParams={searchParams} numOfPages={8}>
-                <Addcategory />
-            </PaginatedTable>
+            {
+                data.length ? (
+                    <PaginatedTable data={data} dataInfo={dataInfo} additionalFieald={additionalFieald} searchParams={searchParams} numOfPages={8}>
+                        <Addcategory />
+                    </PaginatedTable>
+                ) : (
+                    <h5 className="text-center text-danger my-5">موردی یافت نشد</h5>
+                )
+            }
         </>
         // <div>
         //     <table className="table table-responsive text-center table-hover table-bordered">
