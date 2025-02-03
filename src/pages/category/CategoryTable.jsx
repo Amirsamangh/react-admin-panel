@@ -10,27 +10,19 @@ import { convertDateToLalali } from '../../utils/convertDate';
 
 const CategoryTable = () => {
 
-    const [data, setData] = useState([]);
-
     const params = useParams();
     const location = useLocation()
-
+    const [data, setData] = useState([]);
     const handleGetCategories = async () => {
         try {
-            const res = await getCategoriesService(params.categoryId)
-
-            if (res.status == 200) {
-                setData(res.data.data)
-
-            } else {
-                Alert('مشکلی', res.data.message, 'error')
+            const res = await getCategoriesService(params.categoryId);
+            if (res.status === 200) {
+                setData(res.data.data);
             }
         } catch (error) {
-            Alert('مشکلی', 'مشکلی از سمت سرور رخ داده است ', 'error')
-
+            console.log(error.message);
         }
-    }
-
+    };
     useEffect(() => {
         handleGetCategories();
     }, [params]);
@@ -47,31 +39,23 @@ const CategoryTable = () => {
             title: 'تاریخ',
             elements: (rowData) => convertDateToLalali(rowData.created_at)
         },
-
         {
             title: 'نمایش در منو',
             elements: (rowData) => <ShowInMenu rowData={rowData} />
         },
-
         {
             title: 'عملیات',
             elements: (rowData) => <Actions rowData={rowData} />
         }
-
     ]
-
     const searchParams = {
         title: 'جستجو',
         placeholder: 'قسمتی از عنوان را وارد کنید',
         searchField: 'title',
     }
-
     return (
-
         <>
-            
-            <Outlet/>
-
+            <Outlet />
             {
                 data.length ? (
                     <PaginatedTable data={data} dataInfo={dataInfo} additionalFieald={additionalFieald} searchParams={searchParams} numOfPages={8}>

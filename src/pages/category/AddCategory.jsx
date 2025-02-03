@@ -54,8 +54,7 @@ const Addcategory = () => {
       const res = await getCategoriesService()
       if (res.status == 200) {
         const allParents = res.data.data
-        console.log(allParents);
-
+        
         setParents(allParents.map(p => {
           return { id: p.id, value: p.title }
         }))

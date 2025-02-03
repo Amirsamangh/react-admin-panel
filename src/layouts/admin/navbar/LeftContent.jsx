@@ -15,13 +15,13 @@ const Leftcontent = () => {
         aria-labelledby="dropdownMenuButton1"
       >
         <li className="my-2">
-          <a className="dropdown-item d-block text-center">قاسم بساکی</a>
+          <a className="dropdown-item d-block text-center">امیرسامان قره چاهی</a>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-tachometer-alt"></i>
-          <a className="dropdown-item" href="#">
+          <Link to={"/"} className="dropdown-item" href="#">
             داشبورد
-          </a>
+          </Link>
         </li>
         <li className="my-2 d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-paper-plane"></i>
@@ -38,9 +38,9 @@ const Leftcontent = () => {
         <hr />
         <li className="d-flex justify-content-center align-items-center px-2">
           <i className="fas fa-power-off"></i>
-          <Link to={'/logout'} className="dropdown-item">
+          <Link to={"/logout"} className="dropdown-item">
             خروج
-          </Link>
+          </Link >
         </li>
       </ul>
       <i className="far fa-bell fa-2x mx-3 pointer position-relative">
