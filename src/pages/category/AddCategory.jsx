@@ -5,8 +5,8 @@ import { Formik, Form, FastField } from "formik";
 import FormikControl from "../../components/form/FormikControl";
 import { createNewCategoryService, getCategoriesService } from "../../services/category";
 import { Alert } from "../../utils/alerts";
-import SpinnerLoad from "../../components/SpinnerLoad";
 import SubmitButton from "../../components/form/submitButton";
+import { useParams } from "react-router-dom";
 
 const initialValues = {
   parent_id: "",
@@ -68,6 +68,8 @@ const validationSchema = Yup.object({
 const Addcategory = ({ setForceRender }) => {
 
   const [parents, setParents] = useState([]);
+  const params = useParams();
+  const [reInitialValues , setReInitialValues] = useState(null)
 
   const handleGetParentsCategories = async () => {
     try {
@@ -86,6 +88,17 @@ const Addcategory = ({ setForceRender }) => {
   useEffect(() => {
     handleGetParentsCategories();
   }, []);
+
+  useEffect(() => {
+    if(params.categoryId) {
+      setReInitialValues({
+        ...initialValues,
+        parent_id: params.categoryId
+      })
+    } else {
+      setReInitialValues(null)
+    }
+  }, [params.categoryId]);
 
   return (
     <>
@@ -107,9 +120,10 @@ const Addcategory = ({ setForceRender }) => {
       >
 
         <Formik
-          initialValues={initialValues}
+          initialValues={reInitialValues || initialValues}
           onSubmit={(values, actions) => onSubmit(values, actions, setForceRender)}
           validationSchema={validationSchema}
+          enableReinitialize
         >
           <Form>
             <div className="container">
