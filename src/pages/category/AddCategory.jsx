@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ModalsContainer from "../../components/ModalsContainer";
 import * as Yup from 'yup';
-import { Formik, Form } from "formik";
+import { Formik, Form, FastField } from "formik";
 import FormikControl from "../../components/form/FormikControl";
 import { createNewCategoryService, getCategoriesService } from "../../services/category";
 import { Alert } from "../../utils/alerts";
+import SpinnerLoad from "../../components/SpinnerLoad";
+import SubmitButton from "../../components/form/submitButton";
 
 const initialValues = {
   parent_id: "",
@@ -16,9 +18,9 @@ const initialValues = {
 };
 
 
-const onSubmit = async (values, actions , setForceRender) => {
+const onSubmit = async (values, actions, setForceRender) => {
   console.log(actions);
-  
+
   try {
     values = {
       ...values,
@@ -27,11 +29,11 @@ const onSubmit = async (values, actions , setForceRender) => {
     }
     const res = await createNewCategoryService(values);
     console.log(res);
-    
-    if(res.status == 201) {
-      Alert('رکورد ثبت شد' , res.data.message , 'success')
+
+    if (res.status == 201) {
+      Alert('رکورد ثبت شد', res.data.message, 'success')
       actions.resetForm();
-      setForceRender(last=>last+1)
+      setForceRender(last => last + 1)
     }
   } catch (error) {
     console.log(error.message);
@@ -63,7 +65,7 @@ const validationSchema = Yup.object({
 //   { id: 4, value: 'test4' },
 // ]
 
-const Addcategory = ({setForceRender}) => {
+const Addcategory = ({ setForceRender }) => {
 
   const [parents, setParents] = useState([]);
 
@@ -106,7 +108,7 @@ const Addcategory = ({setForceRender}) => {
 
         <Formik
           initialValues={initialValues}
-          onSubmit={(values , actions )=>onSubmit(values , actions , setForceRender)}
+          onSubmit={(values, actions) => onSubmit(values, actions, setForceRender)}
           validationSchema={validationSchema}
         >
           <Form>
@@ -169,7 +171,7 @@ const Addcategory = ({setForceRender}) => {
 
 
                 <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
-                  <button type="submit" className="btn btn-primary ">ذخیره</button>
+                  <SubmitButton />
                 </div>
               </div>
             </div>

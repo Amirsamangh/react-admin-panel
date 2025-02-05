@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Addcategory from '../pages/category/AddCategory';
+import SpinnerLoad from './SpinnerLoad';
 
 
-const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchParams, numOfPages }) => {
+const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchParams, numOfPages, loading }) => {
 
     const [initData, setInitData] = useState(data);
     const [tableData, setTableData] = useState([]);
@@ -28,7 +29,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
     useEffect(() => {
         setInitData(data.filter(d => d[searchParams.searchField].includes(searchChar)))
         setCurrentPage(1)
-    }, [searchChar , data])
+    }, [searchChar, data])
 
     return (
         <div>
@@ -54,31 +55,45 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
 
             </div>
 
-            <table className="table table-responsive text-center table-hover table-bordered">
-                <thead className="table-secondary">
-                    <tr>
-                        {dataInfo.map(i => (
-                            <th key={i.field}>{i.title}</th>
-                        ))}
-                        {additionalFieald ? additionalFieald.map((a , index)=>(
-                            <th key={a.id + '__' + index}>{a.title}</th>
-                        )) : null}
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableData.map(d => (
-                        <tr key={d.id}>
-                            {dataInfo.map(i => (
-                                <td key={i.field + '_' + d.id}>{d[i.field]}</td>
+            {
+                loading ? (
+                    <SpinnerLoad
+                        colorClass='text-primary'
+                        isSmall={false}
+                        inline={true}
+                    />
+                ) : data.length ? (
+                    <table className="table table-responsive text-center table-hover table-bordered">
+                        <thead className="table-secondary">
+                            <tr>
+                                {dataInfo.map(i => (
+                                    <th key={i.field}>{i.title}</th>
+                                ))}
+                                {additionalFieald ? additionalFieald.map((a, index) => (
+                                    <th key={a.id + '__' + index}>{a.title}</th>
+                                )) : null}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableData.map(d => (
+                                <tr key={d.id}>
+                                    {dataInfo.map(i => (
+                                        <td key={i.field + '_' + d.id}>{d[i.field]}</td>
+                                    ))}
+                                    {additionalFieald ? additionalFieald.map((a, index) => (
+                                        <td key={a.id + '___' + index}>{a.elements(d)}</td>
+                                    )) : null
+                                    }
+                                </tr>
                             ))}
-                            { additionalFieald ? additionalFieald.map((a , index)=>(
-                                <td key={a.id + '___' + index}>{a.elements(d)}</td>
-                            )) : null
-                            }
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                ) : (
+                    <h5 className="text-center text-danger my-5">هیچ دسته بندی یافت نشد</h5>
+                )
+            }
+
+
 
             {pages.length > 1 ? (
                 <nav aria-label="Page navigation example" className="d-flex justify-content-center">

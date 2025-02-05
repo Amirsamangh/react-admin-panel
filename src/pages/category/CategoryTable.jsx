@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import PaginatedTable from '../../components/PaginatedTable';
 import Addcategory from './AddCategory';
 import { getCategoriesService } from '../../services/category';
-import { Alert } from '../../utils/alerts';
 import ShowInMenu from './tableAddition/showInMenu';
 import Actions from './tableAddition/Actions';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { convertDateToLalali } from '../../utils/convertDate';
 
 const CategoryTable = () => {
 
     const params = useParams();
-    const location = useLocation()
     const [data, setData] = useState([]);
     const [forceRender, setForceRender] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const handleGetCategories = async () => {
+        setLoading(true)
         try {
             const res = await getCategoriesService(params.categoryId);
             if (res.status === 200) {
@@ -23,11 +23,13 @@ const CategoryTable = () => {
             }
         } catch (error) {
             console.log(error.message);
+        } finally {
+            setLoading(false)
         }
     };
     useEffect(() => {
         handleGetCategories();
-    }, [params , forceRender]);
+    }, [params, forceRender]);
 
     const dataInfo = [
         { field: 'id', title: '#' },
@@ -58,21 +60,16 @@ const CategoryTable = () => {
     return (
         <>
             <Outlet />
-            {
-                data.length ? (
-                    <PaginatedTable
-                        data={data}
-                        dataInfo={dataInfo}
-                        additionalFieald={additionalFieald}
-                        searchParams={searchParams}
-                        numOfPages={8}
-                    >
-                        <Addcategory setForceRender={setForceRender} />
-                    </PaginatedTable>
-                ) : (
-                    <h5 className="text-center text-danger my-5">هیچ دسته بندی یافت نشد</h5>
-                )
-            }
+            <PaginatedTable
+                data={data}
+                dataInfo={dataInfo}
+                additionalFieald={additionalFieald}
+                searchParams={searchParams}
+                numOfPages={8}
+                loading={loading}
+            >
+                <Addcategory setForceRender={setForceRender} />
+            </PaginatedTable>
         </>
     );
 }
