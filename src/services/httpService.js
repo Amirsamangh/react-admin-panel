@@ -9,7 +9,7 @@ axios.interceptors.response.use((res)=>{
     return res
 },(error)=>{
     Alert(error.response.status, "مشکلی رخ داده است", "error");
-    return new Promise.reject(error)
+    return Promise.reject(error)
 })
 
 const httpService = (url, method, data=null)=>{
