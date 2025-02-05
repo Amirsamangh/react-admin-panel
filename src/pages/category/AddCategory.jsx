@@ -3,8 +3,8 @@ import ModalsContainer from "../../components/ModalsContainer";
 import * as Yup from 'yup';
 import { Formik, Form } from "formik";
 import FormikControl from "../../components/form/FormikControl";
-import { getCategoriesService } from "../../services/category";
-import { Alert } from "bootstrap";
+import { createNewCategoryService, getCategoriesService } from "../../services/category";
+import { Alert } from "../../utils/alerts";
 
 const initialValues = {
   parent_id: "",
@@ -16,9 +16,27 @@ const initialValues = {
 };
 
 
-const onSubmit = (values, actions) => {
+const onSubmit = async (values, actions , setForceRender) => {
+  console.log(actions);
+  
+  try {
+    values = {
+      ...values,
+      is_active: values.is_active ? 1 : 0,
+      show_in_menu: values.show_in_menu ? 1 : 0,
+    }
+    const res = await createNewCategoryService(values);
+    console.log(res);
+    
+    if(res.status == 201) {
+      Alert('رکورد ثبت شد' , res.data.message , 'success')
+      actions.resetForm();
+      setForceRender(last=>last+1)
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
   console.log(values);
-
 }
 
 const validationSchema = Yup.object({
@@ -45,7 +63,7 @@ const validationSchema = Yup.object({
 //   { id: 4, value: 'test4' },
 // ]
 
-const Addcategory = () => {
+const Addcategory = ({setForceRender}) => {
 
   const [parents, setParents] = useState([]);
 
@@ -54,7 +72,7 @@ const Addcategory = () => {
       const res = await getCategoriesService()
       if (res.status == 200) {
         const allParents = res.data.data
-        
+
         setParents(allParents.map(p => {
           return { id: p.id, value: p.title }
         }))
@@ -88,7 +106,7 @@ const Addcategory = () => {
 
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={(values , actions )=>onSubmit(values , actions , setForceRender)}
           validationSchema={validationSchema}
         >
           <Form>
