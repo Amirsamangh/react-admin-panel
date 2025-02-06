@@ -1,9 +1,16 @@
+import { useContext } from "react";
 import httpService from "./httpService";
+
 
 
 export const getCategoriesService = (id = null)=>{
     return httpService(`/admin/categories${id ? `?parent=${id}` : ''}` , 'get')
 } 
+
+export const getSingleCategoriesService = (id)=>{
+    return httpService(`/admin/categories/${id}` , 'get')
+}
+
 
 export const createNewCategoryService = (data)=>{
     if(data.image) {
@@ -20,4 +27,8 @@ export const createNewCategoryService = (data)=>{
     }
 
     return httpService('/admin/categories' , 'post' , data)
+}
+
+export const editCategoryService = (id , data) =>{
+    return httpService(`/admin/categories/${id}` , 'put' , data )
 }

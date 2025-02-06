@@ -1,75 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ModalsContainer from "../../components/ModalsContainer";
-import * as Yup from 'yup';
-import { Formik, Form, FastField } from "formik";
+import { Formik, Form } from "formik";
 import FormikControl from "../../components/form/FormikControl";
-import { createNewCategoryService, getCategoriesService } from "../../services/category";
+import { getCategoriesService, getSingleCategoriesService } from "../../services/category";
 import { Alert } from "../../utils/alerts";
 import SubmitButton from "../../components/form/submitButton";
 import { useParams } from "react-router-dom";
-
-const initialValues = {
-  parent_id: "",
-  title: "",
-  description: "",
-  image: null,
-  is_active: true,
-  show_in_menu: true,
-};
+import { CategoryContext } from "../../context/categoryContext";
+import { initialValues, onSubmit, validationSchema } from "./core";
 
 
-const onSubmit = async (values, actions, setForceRender) => {
-  console.log(actions);
-
-  try {
-    values = {
-      ...values,
-      is_active: values.is_active ? 1 : 0,
-      show_in_menu: values.show_in_menu ? 1 : 0,
-    }
-    const res = await createNewCategoryService(values);
-    console.log(res);
-
-    if (res.status == 201) {
-      Alert('رکورد ثبت شد', res.data.message, 'success')
-      actions.resetForm();
-      setForceRender(last => last + 1)
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-  console.log(values);
-}
-
-const validationSchema = Yup.object({
-  parent_id: Yup.number(),
-  title: Yup.string().required('لطفا این قسمت را پر کنید').matches(/^[u0600-\u06FF\sa-zA-Z0-9!@$%&?]+$/, 'فقط از حروف و اعداد استفاده شود'),
-  description: Yup.string().matches(/^[u0600-\u06FF\sa-zA-Z0-9!@$%&?]+$/, 'فقط از حروف و اعداد استفاده شود'),
-  image: Yup.mixed().nullable()
-    .test("filesize", "حجم فایل نمیتواند بیشتر 500 کیلوبایت باشد", (value) =>
-      !value ? true : value.size <= 500 * 1024
-    )
-    .test("format", "فرمت فایل باید jpg باشد", (value) =>
-      !value ? true : value.type == "image/jpeg"
-    ),
-
-  is_active: Yup.boolean(),
-
-  show_in_menu: Yup.boolean(),
-})
-
-// const parents = [
-//   { id: 1, value: 'test1' },
-//   { id: 2, value: 'test2' },
-//   { id: 3, value: 'test3' },
-//   { id: 4, value: 'test4' },
-// ]
 
 const Addcategory = ({ setForceRender }) => {
 
-  const [parents, setParents] = useState([]);
   const params = useParams();
-  const [reInitialValues , setReInitialValues] = useState(null)
+
+  const { editId, setEditId } = useContext(CategoryContext)
+  const [parents, setParents] = useState([]);
+  const [editCategoty, setEditCategory] = useState(null);
+  const [reInitialValues, setReInitialValues] = useState(null)
 
   const handleGetParentsCategories = async () => {
     try {
@@ -85,12 +34,44 @@ const Addcategory = ({ setForceRender }) => {
       Alert('مشکل', 'متاسفانه دسته‌بندی های والد دریافت نشد', 'warning')
     }
   }
+
+  const handleGetSingleCategories = async () => {
+    try {
+      const res = await getSingleCategoriesService(editId)
+      console.log(res);
+
+      if (res.status == 200) {
+        const oldCategory = res.data.data;
+        setEditCategory(oldCategory)
+      }
+    } catch (error) {
+      Alert('مشکل', 'متاسفانه دسته مورد نظر یافت نشد', 'warning')
+    }
+  }
+
+  useEffect(() => {
+    if (editId) handleGetSingleCategories()
+    else setEditCategory(null)
+  }, [editId])
+
+
   useEffect(() => {
     handleGetParentsCategories();
   }, []);
 
   useEffect(() => {
-    if(params.categoryId) {
+
+    if (editCategoty) {
+      setReInitialValues({
+        parent_id: editCategoty.parent_id || '',
+        title: editCategoty.title,
+        description: editCategoty.description,
+        image: null,
+        is_active: editCategoty.is_active ? true : false,
+        show_in_menu: editCategoty.show ? true : false,
+
+      })
+    } else if (params.categoryId) {
       setReInitialValues({
         ...initialValues,
         parent_id: params.categoryId
@@ -98,7 +79,8 @@ const Addcategory = ({ setForceRender }) => {
     } else {
       setReInitialValues(null)
     }
-  }, [params.categoryId]);
+  }, [params.categoryId, editCategoty]);
+
 
   return (
     <>
@@ -107,6 +89,7 @@ const Addcategory = ({ setForceRender }) => {
         className="btn btn-success d-flex justify-content-center align-items-center"
         data-bs-toggle="modal"
         data-bs-target="#add_product_category_modal"
+        onClick={() => { setEditId(null) }}
       >
 
         <i className="fas fa-plus text-light"></i>
@@ -116,14 +99,15 @@ const Addcategory = ({ setForceRender }) => {
       <ModalsContainer
         fullScreen={true}
         id='add_product_category_modal'
-        title='افزودن دسته محصولات'
+        title={editId ? "ویرایش : " + (editCategoty ? editCategoty.title : '') : 'افزودن دسته محصولات'}
       >
 
         <Formik
           initialValues={reInitialValues || initialValues}
-          onSubmit={(values, actions) => onSubmit(values, actions, setForceRender)}
+          onSubmit={(values, actions) => onSubmit(values, actions, setForceRender , editId)}
           validationSchema={validationSchema}
           enableReinitialize
+          editId
         >
           <Form>
             <div className="container">
@@ -157,14 +141,18 @@ const Addcategory = ({ setForceRender }) => {
                   label='توضیحات'
                   placeholder='توضیحات'
                 />
+                {
+                  !editId ? (
+                    <FormikControl
+                      className='col-md-6 col-lg-8'
+                      control='file'
+                      name='image'
+                      label='تصویر'
+                      placeholder='تصویر'
+                    />
+                  ) : null
+                }
 
-                <FormikControl
-                  className='col-md-6 col-lg-8'
-                  control='file'
-                  name='image'
-                  label='تصویر'
-                  placeholder='تصویر'
-                />
 
                 <div className="col-12 col-md-6 col-lg-8 row justify-content-center">
                   <div className="col-12 col-md-4 col-lg-3 mx-lg-5">
