@@ -89,7 +89,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
                         </tbody>
                     </table>
                 ) : (
-                    <h5 className="text-center text-danger my-5">هیچ دسته بندی یافت نشد</h5>
+                    <h5 className="text-center text-danger my-5">هیچ رکوردی یافت نشد</h5>
                 )
             }
 
