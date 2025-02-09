@@ -8,8 +8,9 @@ const Switch = ({name , label}) => {
                 type='checkbox'
                 className='form-check-input pointer'
                 name={name}
+                id={name}
             />
-            <label className='form-check-label pointer select_none'>{label}</label>
+            <label htmlFor={name} className='form-check-label pointer select_none'>{label}</label>
         </div>
     );
 }

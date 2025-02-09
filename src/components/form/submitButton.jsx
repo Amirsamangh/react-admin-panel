@@ -5,13 +5,15 @@ import SpinnerLoad from '../SpinnerLoad';
 const SubmitButton = () => {
     return (
         <FastField>
-            {({form}) => (
-                <button type="submit" className="btn btn-primary" disabled={form.isSubmitting}>
-                    ذخیره
-                    {form.isSubmitting ? <SpinnerLoad colorClass={'text-white'} isSmall={true} inline={true} /> : null}
-                </button>
-            )}
-        </FastField>
+        {({ form }) => {
+          return (
+            <button type="submit" className="btn btn-primary " disabled={form.isSubmitting}>
+              ذخیره
+              {form.isSubmitting ? <SpinnerLoad colorClass={"text-white"} isSmall={true} inline={true}/> : null}
+            </button>
+          );
+        }}
+      </FastField>
     );
 }
 
