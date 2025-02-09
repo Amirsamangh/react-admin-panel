@@ -4,7 +4,7 @@ import { Formik, Form } from "formik";
 import FormikControl from "../../components/form/FormikControl";
 import { getCategoriesService, getSingleCategoriesService } from "../../services/category";
 import { Alert } from "../../utils/alerts";
-import SubmitButton from "../../components/form/submitButton";
+import SubmitButton from "../../components/form/SubmitButton";
 import { useParams } from "react-router-dom";
 import { CategoryContext } from "../../context/categoryContext";
 import { initialValues, onSubmit, validationSchema } from "./core";
