@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const AttrActions = ({rowData , attrToEdit , setAttrToEdit}) => {
+const AttrActions = ({rowData , attrToEdit , setAttrToEdit , handleDeleteCategoryAttr}) => {
     return (
         <div className={`text-center ${attrToEdit && attrToEdit.id === rowData.id ? 'alert-danger shadow rounded' : ''}`}>
             <i
@@ -14,6 +14,7 @@ const AttrActions = ({rowData , attrToEdit , setAttrToEdit}) => {
             <i
                 className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
                 title="حذف ویژگی"
+                onClick={()=>handleDeleteCategoryAttr(rowData)}
             ></i>
         </div>
     );
