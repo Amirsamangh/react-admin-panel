@@ -2,7 +2,7 @@ import { ErrorMessage, FastField } from 'formik';
 import React from 'react';
 import FormikError from './FormikError';
 
-const Input = ({ className, type, name, label, placeholder }) => {
+const Input = ({ className, type, name, label, placeholder , attrToEdit}) => {
     return (
         <div className={`col-12 ${className}`}>
             <div className="input-group mb-3 dir_ltr">

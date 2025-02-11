@@ -4,12 +4,9 @@ import PaginatedTable from '../../../components/PaginatedTable';
 import ShowInFilter from './ShowInFilter';
 import AttrActions from './AttrActions';
 import PrevPageButton from '../../../components/PrevPageButton';
-import { addCategoryAttrService, editCategoryAttrService, getCategoryAttrService } from '../../../services/categoryAttr';
-import { Alert } from '../../../utils/alerts';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import FormikControl from '../../../components/form/FormikControl';
-import SubmitButton from '../../../components/form/SubmitButton';
+import { deleteCategoryAttrService , getCategoryAttrService } from '../../../services/categoryAttr';
+import { Alert, Confirm } from '../../../utils/alerts';
+import AddAttrs from './AddAttrs';
 
 const AddAttrbute = () => {
 
@@ -26,13 +23,14 @@ const AddAttrbute = () => {
     ]
     const additionalFieald = [
         {
+            title: 'عملیات',
+            elements: (rowData) => <AttrActions rowData={rowData} setAttrToEdit={setAttrToEdit} attrToEdit={attrToEdit} handleDeleteCategoryAttr={handleDeleteCategoryAttr} />
+        },
+        {
             title: 'نمایش در فیلتر',
             elements: (rowData) => <ShowInFilter rowData={rowData} />
         },
-        {
-            title: 'عملیات',
-            elements: (rowData) => <AttrActions rowData={rowData} setAttrToEdit={setAttrToEdit} attrToEdit={attrToEdit} />
-        },
+        
     ]
     const searchParams = {
         title: 'جستجو',
@@ -57,15 +55,25 @@ const AddAttrbute = () => {
             setLoading(false);
         }
     }
+
+    const handleDeleteCategoryAttr = async (attr) => {
+        if (await Confirm(`حذف ویژگی ${attr.title}`, 'آیا از حذف رکورد اطمینان دارید؟')) {
+            try {
+                const res = await deleteCategoryAttrService(attr.id);
+                console.log(res);
+                if (res.status === 200) {
+                    Alert('', res.data.message, 'success')
+                    setData(lastData => [...lastData].filter(d => d.id != attr.id))
+                }
+            } catch (error) {
+                Alert('خطا', error.message, 'danger')
+            }
+        }
+    }
     useEffect(() => {
         handleGetCategoryAttr();
     }, [])
 
-    const initialValues = {
-        title: '',
-        unit: '',
-        in_filter: true
-    }
 
     useEffect(() => {
         if (attrToEdit) setReinitialValues({
@@ -76,44 +84,6 @@ const AddAttrbute = () => {
         else setReinitialValues(null)
     }, [attrToEdit])
 
-    const onSubmit = async (values, actions, catId, setData, attrToEdit, setAttrToEdit) => {
-        try {
-          values = {
-            ...values,
-            in_filter: values.in_filter ? 1 : 0
-          }
-          if (attrToEdit) {
-            const attrId = attrToEdit.id
-            const res = await editCategoryAttrService(attrId, values);
-            console.log(res);
-            if (res.status === 200) {
-              setData(oldData=>{
-                const newData = [...oldData]
-                const index = newData.findIndex(d=>d.id === attrToEdit.id)
-                newData[index] = res.data.data
-                return newData
-              });
-              Alert('انجام شد', res.data.message, 'success');
-              setAttrToEdit(null)
-            }
-          }else{
-            const res = await addCategoryAttrService(catId, values);
-            if (res.status === 201) {
-              Alert('انجام شد', res.data.message, 'success');
-              setData(oldData=>[...oldData, res.data.data])
-            }
-          }
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
-
-
-    const validationSchema = Yup.object({
-        title: Yup.string().required('لطفا این قسمت را پر کنید').matches(/^[u0600-\u06FF\sa-zA-Z0-9!@$%&?]+$/, 'فقط از حروف و اعداد استفاده شود'),
-        unit: Yup.string().required('لطفا این قسمت را پر کنید').matches(/^[u0600-\u06FF]/, 'فقط از حروف استفاده شود'),
-        in_filter: Yup.boolean(),
-    })
     return (
         <>
             <div className="container">
@@ -124,47 +94,13 @@ const AddAttrbute = () => {
                             <h5 className='text-danger'>{location.state.categoryData.title}</h5>
                         </div>
                     </div>
-                    <Formik
-                        initialValues={reinitialValues || initialValues}
-                        onSubmit={(values, actions) =>
-                            onSubmit(values, actions, location.state.categoryData.id, setData, attrToEdit, setAttrToEdit)}
-                        validationSchema={validationSchema}
-                        enableReinitialize
-                    >
-                        <Form>
-                            <div className={`row my-3 ${attrToEdit ? 'alert-danger shadow rounded' : ''} justify-content-center  is_inline`}>
-                                <FormikControl
-                                    control='input'
-                                    className='col-md-6 col-lg-4 my-1'
-                                    type='text'
-                                    name='title'
-                                    label='عنوان'
-                                    placeholder='عنوان ویژگی جدید'
-                                />
-                                <FormikControl
-                                    control='input'
-                                    className='col-md-6 col-lg-4 my-1'
-                                    type='text'
-                                    name='unit'
-                                    label='واحد'
-                                    placeholder='واحد ویژگی جدید'
-                                />
-                                <div className="col-8 col-lg-2 my-1 ">
-                                    <FormikControl
-                                        control='switch'
-                                        name='in_filter'
-                                        label='نمایش در فیلتر'
-                                    />
-                                </div>
-                                <div className="col-4 col-lg-2 d-flex justify-content-center align-items-start my-1 btn-group btn-group-sm dir_ltr">
-                                    <SubmitButton />
-                                    {attrToEdit ? (
-                                        <button className='btn btn-secondary btn-sm me-2' type='button' onClick={() => setAttrToEdit(null)}>انصراف</button>
-                                    ) : null}
-                                </div>
-                            </div>
-                        </Form>
-                    </Formik>
+                    <AddAttrs 
+                    reinitialValues={reinitialValues}
+                    location={location}
+                    setData={setData}
+                    attrToEdit={attrToEdit}
+                    setAttrToEdit={setAttrToEdit}
+                    />
                     <hr />
                     <PaginatedTable
                         data={data}
