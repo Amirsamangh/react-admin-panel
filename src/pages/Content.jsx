@@ -6,7 +6,6 @@ import Dashboard from './dashboard/Dashboard';
 import { Route, Routes } from 'react-router-dom';
 import Color from './color/Color';
 import Guarantee from './guarantee/Guarantee';
-import Brand from './brand/Brand';
 import Discount from './discount/Discount';
 import Cart from './cart/Cart';
 import Order from './order/Order';
@@ -19,6 +18,7 @@ import Question from './question/Question';
 import Logout from './auth/Logout';
 import CategoryChildren from './category/CategoryChildren';
 import Attrbute from './category/attrs/Attrbute';
+import Brands from './brand/Brands';
 
 const Content = () => {
 
@@ -38,7 +38,7 @@ const Content = () => {
               <Route path='/products' element={<Product/>}/>
               <Route path='/colors' element={<Color/>}/>
               <Route path='/guaranties' element={<Guarantee/>}/>
-              <Route path='/brands' element={<Brand/>}/>
+              <Route path='/brands' element={<Brands/>}/>
               <Route path='/discounts' element={<Discount/>}/>
               <Route path='/carts' element={<Cart/>}/>
               <Route path='/orders' element={<Order/>}/>
