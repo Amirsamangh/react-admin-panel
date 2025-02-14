@@ -57,11 +57,14 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
 
             {
                 loading ? (
-                    <SpinnerLoad
+                    <div className="text-center">
+                        <SpinnerLoad
                         colorClass='text-primary'
                         isSmall={false}
                         inline={true}
                     />
+                    </div>
+                    
                 ) : data.length ? (
                     <table className="table table-responsive text-center table-hover table-bordered">
                         <thead className="table-secondary">

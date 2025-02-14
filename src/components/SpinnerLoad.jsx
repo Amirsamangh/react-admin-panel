@@ -3,7 +3,7 @@ import React from "react";
 const SpinnerLoad = ({ colorClass, isSmall, inline }) => {
   return (
     <span
-      className={`text-center justify-content-center d-inline ${!inline ? "d-block" : "mx-2"} ${colorClass}`}
+      className={`text-center ${!inline ? "d-block" : "mx-2"} ${colorClass}`}
     >
       <div
         className={`spinner-border ${isSmall ? "spinner-border-sm" : ""}`}
