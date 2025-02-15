@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import PaginatedTable from '../../components/PaginatedTable';
 import AddBrands from './AddBrands';
 import { apiPath } from '../../services/httpService';
-import { getAllBrandsService } from '../../services/brands';
+import { deleteBrandsService, editBrandsService, getAllBrandsService } from '../../services/brands';
 import Actions from './tableAddition/Actions';
+import { Alert, Confirm } from '../../utils/alerts';
 
 const BrandTable = () => {
     const [data , setData] = useState([])
     const [loading , setLoading] = useState(false)
+    const [brandToEdit , setBrandToEdit] = useState(null)
 
     const dataInfo = [
         {field: 'id' , title: '#'},
@@ -24,7 +26,7 @@ const BrandTable = () => {
         },
         {
           title: "عملیات",
-          elements: (rowData) => <Actions rowData={rowData} />,
+          elements: (rowData) => <Actions rowData={rowData} setBrandToEdit={setBrandToEdit} handleDeleteBrand={handleDeleteBrand} />,
         },
       ];
 
@@ -48,6 +50,16 @@ const BrandTable = () => {
     useEffect(()=>{
         handleGetAllBrands()
     },[])
+
+    const handleDeleteBrand = async (brand)=>{
+        if(await Confirm('حذف یرند' , `آیا از حذف ${brand.original_name} اطمینان دارید؟`)) {
+            const res = await deleteBrandsService(brand.id)
+            if(res.status === 200) {
+                Alert('انجام شد' , res.data.message , 'success')
+                setData(lastData=> lastData.filter(d=>d.id != brand.id))
+            }
+        }
+    }
     return (
         <>
             <PaginatedTable
@@ -58,7 +70,7 @@ const BrandTable = () => {
                 searchParams={searchParams}
                 loading={loading}
             >
-                <AddBrands setData={setData}/>
+                <AddBrands setData={setData} brandToEdit={brandToEdit} setBrandToEdit={setBrandToEdit} />
             </PaginatedTable>
         </>
     );
