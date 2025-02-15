@@ -1,28 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalsContainer from '../../components/ModalsContainer';
 import { Form, Formik } from 'formik';
 import FormikControl from '../../components/form/FormikControl';
 import SubmitButton from '../../components/form/SubmitButton';
 import { initialValues, onSubmit, validationSchema } from './core';
+import { editBrandsService } from '../../services/brands';
+import { Confirm } from '../../utils/alerts';
+import { apiPath } from '../../services/httpService';
 
-const AddBrand = ({setData}) => {
+const AddBrand = ({setData, brandToEdit , setBrandToEdit }) => {
+
+    const [reInitialvalues , setReInitialvalues] = useState(null)
+
+    useEffect(() => {
+        if(brandToEdit) setReInitialvalues({
+            original_name: brandToEdit.original_name ,
+            persian_name: brandToEdit.persian_name ,
+            descriptions: brandToEdit.descriptions || '' ,
+            logo: null ,
+        }) 
+        else setReInitialvalues(null)
+    }, [brandToEdit]);
+
     return (
         <>
-            <button className="btn btn-success d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add_brand_modal">
+            <button className="btn btn-success d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add_brand_modal" onClick={()=>setBrandToEdit(null)}>
                 <i className="fas fa-plus text-light"></i>
             </button>
             <ModalsContainer
                 id={'add_brand_modal'}
-                title="افزودن برند"
+                title={brandToEdit ? "ویرایش برند" : "افزودن برند"}
                 fullScreen={false}
             >
                 <div className="container">
                     <div className="row justify-content-center">
 
                         <Formik
-                            initialValues={initialValues}
+                            initialValues={reInitialvalues || initialValues}
                             validationSchema={validationSchema}
-                            onSubmit={(values , actions)=>onSubmit(values , actions , setData)}
+                            onSubmit={(values , actions)=>onSubmit(values , actions , setData , brandToEdit)}
+                            enableReinitialize
                         >
                             <Form>
                                 <FormikControl
@@ -48,6 +65,14 @@ const AddBrand = ({setData}) => {
                                     label='توضیحات'
                                     placeholder='توضیحات'
                                 />
+
+                                {
+                                    brandToEdit ? (
+                                        <div className="btn_box text-center col-12 py-3">
+                                            <img src={apiPath+"/"+brandToEdit.logo} width="60" />
+                                        </div>
+                                    ) : null
+                                }
                                 
                                 <FormikControl
                                     control='file'
