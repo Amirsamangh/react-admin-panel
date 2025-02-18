@@ -27,7 +27,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
     }, [currentPage, initData]);
 
     useEffect(() => {
-        setInitData(data.filter(d => d[searchParams.searchField].includes(searchChar)))
+        setInitData(data.filter(d => d[searchParams.searchField].toLowerCase().includes(searchChar)))
         setCurrentPage(1)
     }, [searchChar, data])
 
