@@ -42,7 +42,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
                             type="text"
                             className="form-control"
                             placeholder={searchParams.placeholder}
-                            onChange={(e) => { setSearchChar(e.target.value) }}
+                            onChange={(e) => { setSearchChar(e.target.value.toLowerCase()) }}
                         />
                         <span className="input-group-text" >{searchParams.title}</span>
                     </div>
