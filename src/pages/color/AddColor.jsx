@@ -5,12 +5,12 @@ import FormikControl from '../../components/form/FormikControl';
 import { initialValues, onSubmit, validationSchema } from './core';
 import SubmitButton from '../../components/form/SubmitButton';
 
-const AddColor = ({setData ,colorToEdit ,setColorToEdit }) => {
-    const [reInitValues , setReInitValues] = useState(null)
-    const [colorPickerValue , setColorPickerValue] = useState('#000')
-    
+const AddColor = ({ setData, colorToEdit, setColorToEdit }) => {
+    const [reInitValues, setReInitValues] = useState(null)
+    const [colorPickerValue, setColorPickerValue] = useState('#000')
+
     useEffect(() => {
-        if(colorToEdit) {
+        if (colorToEdit) {
             setColorPickerValue(colorToEdit.code)
             setReInitValues({
                 title: colorToEdit.title,
@@ -22,9 +22,9 @@ const AddColor = ({setData ,colorToEdit ,setColorToEdit }) => {
         }
     }, [colorToEdit]);
 
-    const handleChangeColorCodeField = (e , form)=>{
+    const handleChangeColorCodeField = (e, form) => {
         setColorPickerValue(e.target.value)
-        form.setFieldValue( 'code' , e.target.value)
+        form.setFieldValue('code', e.target.value)
     }
 
     return (
@@ -34,7 +34,7 @@ const AddColor = ({setData ,colorToEdit ,setColorToEdit }) => {
                 className="btn btn-success d-flex justify-content-center align-items-center"
                 data-bs-toggle="modal"
                 data-bs-target="#add_color_modal"
-                onClick={()=>setColorToEdit(null)}
+                onClick={() => setColorToEdit(null)}
             >
                 <i className="fas fa-plus text-light"></i>
             </button>
@@ -47,7 +47,7 @@ const AddColor = ({setData ,colorToEdit ,setColorToEdit }) => {
                 <div className="container">
                     <div className="row justify-content-center">
                         <Formik
-                            onSubmit={(values , actions)=>onSubmit(values , actions , setData , colorToEdit)}
+                            onSubmit={(values, actions) => onSubmit(values, actions, setData, colorToEdit)}
                             initialValues={reInitValues || initialValues}
                             validationSchema={validationSchema}
                             enableReinitialize
@@ -58,23 +58,23 @@ const AddColor = ({setData ,colorToEdit ,setColorToEdit }) => {
                                     type='text'
                                     name='title'
                                     label='عنوان رنگ'
-                                    placeholder = 'فقط از اعداد و حروف استفاده کنید'
+                                    placeholder='فقط از اعداد و حروف استفاده کنید'
                                 />
-                                
+
                                 <FastField>
                                     {
-                                        ({form})=>{
+                                        ({ form }) => {
                                             return (
                                                 <div className='col-12 d-flex align-items-center justify-content-center'>
                                                     <label htmlFor="exampleColorInput">انتخاب رنگ</label>
-                                                    <input 
+                                                    <input
                                                         className='form-control form-control-color mx-3'
                                                         type="color"
                                                         id='code'
                                                         name='code'
                                                         title='انتخاب رنگ'
                                                         value={colorPickerValue}
-                                                        onChange={(e)=>handleChangeColorCodeField(e , form)}
+                                                        onChange={(e) => handleChangeColorCodeField(e, form)}
                                                     />
                                                 </div>
                                             );
@@ -86,7 +86,7 @@ const AddColor = ({setData ,colorToEdit ,setColorToEdit }) => {
                                 </div>
                             </Form>
                         </Formik>
-                        
+
                     </div>
                 </div>
             </ModalsContainer>
