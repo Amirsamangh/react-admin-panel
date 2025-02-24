@@ -1,6 +1,6 @@
 import React from "react";
-import ModalsContainer from "../../components/ModalsContainer";
 import { createPortal } from "react-dom";
+import ModalsContainer from "../../components/ModalsContainer";
 
 const AddProduct = () => {
   return (
@@ -13,13 +13,11 @@ const AddProduct = () => {
       >
         <i className="fas fa-plus text-light"></i>
       </button>
-
       <ModalsContainer
         fullScreen={true}
-        id='add_product_modal'
-        title='افزودن محصول جدید'
+        id="add_product_modal"
+        title="افزودن محصول جدید"
       >
-
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-md-6 col-lg-8">
@@ -169,11 +167,7 @@ const AddProduct = () => {
             </div>
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
-                <input
-                  type="file"
-                  className="form-control"
-                  placeholder="تصویر"
-                />
+                <input type="file" className="form-control" placeholder="تصویر" />
                 <span className="input-group-text w_6rem justify-content-center">
                   تصویر
                 </span>
@@ -247,9 +241,7 @@ const AddProduct = () => {
             </div>
           </div>
         </div>
-
       </ModalsContainer>
-      
     </>
   );
 };
