@@ -3,14 +3,15 @@ import { useEffect } from "react";
 import PaginatedDataTable from "../../components/PaginatedDataTable";
 import AddProduct from "./AddProduct";
 import Actions from "./tableAddition/Actions";
-import { getProductsService } from "../../services/product";
+import { deleteProductService, getProductsService } from "../../services/product";
+import { Alert, Confirm } from "../../utils/alerts";
 
 const TableProduct = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchChar, setSearchChar] = useState("") 
+  const [searchChar, setSearchChar] = useState("")
   const [currentPage, setCurrentPage] = useState(1) // صفحه حال حاضر
-  const [countOnPage, setCountOnPage] = useState(1) // تعداد محصول در هر صفحه
+  const [countOnPage, setCountOnPage] = useState(10) // تعداد محصول در هر صفحه
   const [pageCount, setPageCount] = useState(0) // تعداد کل صفحات
 
   const dataInfo = [
@@ -26,7 +27,7 @@ const TableProduct = () => {
     {
       field: null,
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData}/>,
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteProduct={handleDeleteProduct} />,
     },
   ];
   const searchParams = {
@@ -34,7 +35,7 @@ const TableProduct = () => {
     placeholder: "قسمتی از عنوان را وارد کنید",
   };
 
-  const handleGetProducts = async (page, count, char)=>{
+  const handleGetProducts = async (page, count, char) => {
     setLoading(true)
     const res = await getProductsService(page, count, char)
     res && setLoading(false)
@@ -44,27 +45,37 @@ const TableProduct = () => {
     }
   }
 
-  const handleSearch = (char)=>{
+  const handleSearch = (char) => {
     setSearchChar(char)
     handleGetProducts(1, countOnPage, char)
   }
 
-  useEffect(()=>{
+  const handleDeleteProduct = async (product) => {
+    if(await Confirm('حذف محصول' , `آیا از حذف ${product.title} اطمینان دارید؟`)) {
+      const res = await deleteProductService(product.id);
+      if(res.status === 200) {
+        Alert('انجام شد' , res.data.message , 'success')
+        handleGetProducts(currentPage , countOnPage , searchChar)
+      }
+    }
+  }
+
+  useEffect(() => {
     handleGetProducts(currentPage, countOnPage, searchChar)
-  },[currentPage])
+  }, [currentPage])
 
   return (
     <PaginatedDataTable
-    tableData={data}
-    dataInfo={dataInfo}
-    searchParams={searchParams}
-    loading={loading}
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-    pageCount={pageCount}
-    handleSearch={handleSearch}
+      tableData={data}
+      dataInfo={dataInfo}
+      searchParams={searchParams}
+      loading={loading}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      pageCount={pageCount}
+      handleSearch={handleSearch}
     >
-      <AddProduct/>
+      <AddProduct />
     </PaginatedDataTable>
   );
 };

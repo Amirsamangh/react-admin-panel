@@ -14,20 +14,22 @@ const PaginatedDataTable = ({
 
   const [pages, setPages] = useState([]);
 
+  const pageRange = 3
+
   let timeout;
 
-  const handleSetSearchChar = (char)=>{
+  const handleSetSearchChar = (char) => {
     clearTimeout(timeout);
-    timeout = setTimeout(()=>{
+    timeout = setTimeout(() => {
       handleSearch(char)
-    },1000)
+    }, 1000)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     let pArr = [];
     for (let i = 1; i <= pageCount; i++) pArr.push(i);
     setPages(pArr);
-  },[pageCount])
+  }, [pageCount])
 
   return (
     <>
@@ -62,11 +64,11 @@ const PaginatedDataTable = ({
           <tbody>
             {tableData.map((d) => (
               <tr key={d.id}>
-                {dataInfo.map((i,index) => i.field ? (
+                {dataInfo.map((i, index) => i.field ? (
                   <td key={i.field + "_" + d.id}>{d[i.field]}</td>
                 ) : (
-                  <td key={d.id+"__"+i.id+"__"+index}>{i.elements(d)}</td>
-                ) )}
+                  <td key={d.id + "__" + i.id + "__" + index}>{i.elements(d)}</td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -86,32 +88,43 @@ const PaginatedDataTable = ({
           <ul className="pagination dir_ltr">
             <li className="page-item">
               <span
-                className={`page-link pointer ${
-                  currentPage == 1 ? "disabled" : ""
-                }`}
+                className={`page-link pointer ${currentPage == 1 ? "disabled" : ""
+                  }`}
                 aria-label="Previous"
                 onClick={() => setCurrentPage(currentPage - 1)}
               >
                 <span aria-hidden="true">&raquo;</span>
               </span>
             </li>
-            {pages.map((page) => (
-              <li className="page-item" key={page}>
-                <span
-                  className={`page-link pointer ${
-                    currentPage == page ? "alert-success" : ""
-                  }`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </span>
+
+            {currentPage > pageRange ? (
+              <li className="page-item me-2">
+                <span className="page-link pointer" onClick={setCurrentPage(1)}>1</span>
               </li>
-            ))}
+            ) : null}
+
+
+            {pages.map((page) => {
+              return page < currentPage + pageRange && page > currentPage - pageRange ? (
+                <li className="page-item" key={page}>
+                  <span
+                    className={`page-link ${currentPage == page ? 'alert-success' : ''}`} pointer>
+                    {page}
+                  </span>
+                </li>
+              ) : null
+            })}
+
+            {currentPage <= pageRange - pageCount ? (
+              <li className="page-item me-2">
+                <span className="page-link pointer" onClick={setCurrentPage(pageCount)}>{pageCount}</span>
+              </li>
+            ) : null}
+
             <li className="page-item">
               <span
-                className={`page-link pointer ${
-                  currentPage == pageCount ? "disabled" : ""
-                }`}
+                className={`page-link pointer ${currentPage == pageCount ? "disabled" : ""
+                  }`}
                 aria-label="Next"
                 onClick={() => setCurrentPage(currentPage + 1)}
               >
