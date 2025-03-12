@@ -5,6 +5,7 @@ import AddProduct from "./AddProduct";
 import Actions from "./tableAddition/Actions";
 import { deleteProductService, getProductsService } from "../../services/product";
 import { Alert, Confirm } from "../../utils/alerts";
+import { Link } from "react-router-dom";
 
 const TableProduct = () => {
   const [data, setData] = useState([]);
@@ -75,7 +76,11 @@ const TableProduct = () => {
       pageCount={pageCount}
       handleSearch={handleSearch}
     >
-      <AddProduct />
+      <Link to='/products/add-product'>
+        <span className="btn btn-success d-flex justify-content-center align-items-center">
+          <i className="fas fa-plus text-light"></i>
+        </span>
+      </Link>
     </PaginatedDataTable>
   );
 };

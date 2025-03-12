@@ -19,6 +19,7 @@ import Logout from './auth/Logout';
 import CategoryChildren from './category/CategoryChildren';
 import Attrbute from './category/attrs/Attrbute';
 import Brands from './brand/Brands';
+import AddProduct from './product/AddProduct';
 
 const Content = () => {
 
@@ -36,6 +37,7 @@ const Content = () => {
               <Route path='/categories/:categoryId/attrbutes' element={<Attrbute/>}/>
               
               <Route path='/products' element={<Product/>}/>
+              <Route path='/products/add-product' element={<AddProduct/>}/>
               <Route path='/colors' element={<Color/>}/>
               <Route path='/guaranties' element={<Guarantee/>}/>
               <Route path='/brands' element={<Brands/>}/>

@@ -1,35 +1,83 @@
-import React from "react";
-import { createPortal } from "react-dom";
-import ModalsContainer from "../../components/ModalsContainer";
+import React, { useEffect, useState } from "react";
+import PrevPageButton from "../../components/PrevPageButton";
+import { Formik, Form } from "formik";
+import { initialValues, onSubmit, validationSchema } from "./core";
+import FormikControl from "../../components/form/FormikControl";
+import { getCategoriesService } from "../../services/category";
+import SpinnerLoad from "../../components/SpinnerLoad";
 
 const AddProduct = () => {
+  const [parentCategories, setParentCategories] = useState([]);
+  const [mainCategories, setMainCategories] = useState(null);
+
+  const getAllparentCategories = async () => {
+    const res = await getCategoriesService();
+    if (res.status === 200) {
+      setParentCategories(res.data.data.map(d => {
+        return { id: d.id, value: d.title }
+      }));
+    }
+  }
+
+  useEffect(() => {
+    getAllparentCategories()
+  }, [])
+
+  const handleSetMainCategories = async (value) => {
+    console.log(value);
+    
+    setMainCategories('waiting')
+    if (value > 0) {
+      const res = await getCategoriesService(value)
+      if (res.status === 200) {
+        setMainCategories(res.data.data.map(d => {
+          return { id: d.id, value: d.title }
+        }));
+      }
+    } else {
+      setMainCategories(null)
+    }
+  }
+
   return (
 
-    <>
-      <button
-        className="btn btn-success d-flex justify-content-center align-items-center"
-        data-bs-toggle="modal"
-        data-bs-target="#add_product_modal"
-      >
-        <i className="fas fa-plus text-light"></i>
-      </button>
-      <ModalsContainer
-        fullScreen={true}
-        id="add_product_modal"
-        title="افزودن محصول جدید"
-      >
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, actions) => onSubmit(values, actions)}
+      validationSchema={validationSchema}
+    >
+      <Form>
         <div className="container">
+          <h4 className="text-center my-3">افزودن محصول جدید</h4>
           <div className="row justify-content-center">
+
+            {
+              parentCategories.length > 0 ? (
+                <FormikControl
+                  className="col-md-6 col-lg-8"
+                  control='select'
+                  options={parentCategories}
+                  name='parentCats'
+                  label='دسته والد'
+                  firstItem='دسته مورد نظر را انتخاب کنید'
+                  handleOnchange={handleSetMainCategories}
+                />
+              ) : <SpinnerLoad isSmall={true} colorClass={'text-primary'} />
+            }
+
             <div className="col-12 col-md-6 col-lg-8">
-              <div className="input-group mb-2 dir_ltr">
-                <select type="text" className="form-control">
-                  <option value="1">انتخاب دسته محصول</option>
-                  <option value="1">دسته شماره 1</option>
-                </select>
-                <span className="input-group-text w_6rem justify-content-center">
-                  دسته
-                </span>
-              </div>
+              {mainCategories === 'waiting' ? (
+                <SpinnerLoad isSmall={true} colorClass={'text-primary'} />
+                ) : mainCategories !== null ? (
+                  <FormikControl
+                    control='select'
+                    options={mainCategories}
+                    name='mainCats'
+                    label='دسته اصلی'
+                    firstItem='دسته مورد نظر را انتخاب کنید'
+                  />
+                ) : null
+              }
               <div className="col-12 col-md-6 col-lg-8">
                 <span className="chips_elem">
                   <i className="fas fa-times text-danger"></i>
@@ -41,6 +89,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group my-3 dir_ltr">
                 <input
@@ -53,6 +102,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input
@@ -65,6 +115,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input
@@ -77,6 +128,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <span className="input-group-text justify-content-center">
@@ -98,6 +150,7 @@ const AddProduct = () => {
                 </datalist>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-2 dir_ltr">
                 <input
@@ -124,6 +177,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-2 dir_ltr">
                 <input
@@ -152,6 +206,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <textarea
@@ -165,6 +220,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input type="file" className="form-control" placeholder="تصویر" />
@@ -173,6 +229,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input
@@ -185,6 +242,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input
@@ -197,6 +255,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input
@@ -209,6 +268,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8">
               <div className="input-group mb-3 dir_ltr">
                 <input
@@ -221,6 +281,7 @@ const AddProduct = () => {
                 </span>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-lg-8 row justify-content-center">
               <div className="form-check form-switch col-5 col-md-2">
                 <input
@@ -235,14 +296,17 @@ const AddProduct = () => {
                   وضعیت فعال
                 </label>
               </div>
+              <PrevPageButton />
+
             </div>
+
             <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
               <button className="btn btn-primary ">ذخیره</button>
             </div>
           </div>
         </div>
-      </ModalsContainer>
-    </>
+      </Form>
+    </Formik>
   );
 };
 
