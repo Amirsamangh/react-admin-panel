@@ -21,7 +21,7 @@ export const initialValues = {
 export const validationSchema = Yup.object({
     category_ids: Yup.string()
         .required('لطفا این قسمت را پر کنید')
-        .matches(/^[0-9\s-]$/, 'فقط از اعداد و خط تیره استفاده شود'),
+        .matches(/^[\u0600-\u06FF\sa-zA-Z0-9!@%-.$?&]+$/, 'فقط از اعداد و حروف استفاده شود'),
 
     title: Yup.string()
         .required('لطفا این قسمت را پر کنید')
