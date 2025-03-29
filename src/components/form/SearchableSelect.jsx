@@ -6,12 +6,10 @@ import FormikError from "./FormikError";
 
 // if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
 
-const SearchableSelect = ({ resultType, options, name, label, className, firstItem, initialItems }) => {
+const SearchableSelect = ({ resultType, options, name, label, className, firstItem }) => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [showItems, setShowItems] = useState(false);
     const [copyOptions, setCopyOptions] = useState(options);
-
-    useEffect(() => { setSelectedItems(initialItems) }, [initialItems])
 
     useEffect(() => {
         setCopyOptions(options)
@@ -28,20 +26,11 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
         if(selectedItems.findIndex(d=>d.id == selectedId) == -1 && selectedId > 0) {
             const newData = [...selectedItems , options.filter(o=>o.id == selectedId)[0]];
             setSelectedItems(newData)
+
             const selectedIds = newData.map(nd=>nd.id)
             const nameValue = resultType == 'string' ? selectedIds.join('-') : selectedIds
-            formik.setFieldValue(name , nameValue)
+            formik.setFieldValue(name , nameValue);
         }
-
-        // if (selectedItems.findIndex(d => d.id == selectedId) == -1 && selectedId > 0) {
-
-        //     const newData = [...selectedItems, options.filter(o => o.id == selectedId)[0]];
-        //     setSelectedItems(newData)
-
-        //     const selectedIds = newData.map(nd => nd.id);
-        //     const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds
-        //     formik.setFieldValue(name, nameValue);
-        // }
     }
 
     const handleRemovefromSelectedItems = (event, selectedId, formik) => {
@@ -66,7 +55,7 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
                             e.stopPropagation()
                             setShowItems(!showItems)
                         }}>
-                            <div className="form-control" id={name + "-select"}>
+                            <div className="form-control d-flex" id={name + "-select"}>
                                 {selectedItems.length > 0 ?
                                     selectedItems.map((selectedItem) => (
                                         <span className="chips_elem" key={selectedItem.id}>
