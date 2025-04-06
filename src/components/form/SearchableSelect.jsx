@@ -6,10 +6,12 @@ import FormikError from "./FormikError";
 
 // if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
 
-const SearchableSelect = ({ resultType, options, name, label, className, firstItem }) => {
+const SearchableSelect = ({ resultType, options, name, label, className, firstItem, initialItems }) => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [showItems, setShowItems] = useState(false);
     const [copyOptions, setCopyOptions] = useState(options);
+
+    useEffect(() => { setSelectedItems(initialItems) }, [initialItems])
 
     useEffect(() => {
         setCopyOptions(options)
@@ -23,13 +25,13 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
 
     const handleSelectItems = (selectedId, formik) => {
 
-        if(selectedItems.findIndex(d=>d.id == selectedId) == -1 && selectedId > 0) {
-            const newData = [...selectedItems , options.filter(o=>o.id == selectedId)[0]];
+        if (selectedItems.findIndex(d => d.id == selectedId) == -1 && selectedId > 0) {
+            const newData = [...selectedItems, options.filter(o => o.id == selectedId)[0]];
             setSelectedItems(newData)
 
-            const selectedIds = newData.map(nd=>nd.id)
+            const selectedIds = newData.map(nd => nd.id)
             const nameValue = resultType == 'string' ? selectedIds.join('-') : selectedIds
-            formik.setFieldValue(name , nameValue);
+            formik.setFieldValue(name, nameValue);
         }
     }
 
