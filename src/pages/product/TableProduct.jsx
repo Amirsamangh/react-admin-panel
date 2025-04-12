@@ -11,7 +11,7 @@ import { deleteProductService, getProductsService } from "../../services/product
 const TableProduct = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchChar, setSearchChar] = useState("") 
+  const [searchChar, setSearchChar] = useState("")
   const [currentPage, setCurrentPage] = useState(1) // صفحه حال حاضر
   const [countOnPage, setCountOnPage] = useState(10) // تعداد محصول در هر صفحه
   const [pageCount, setPageCount] = useState(0) // تعداد کل صفحات
@@ -23,13 +23,20 @@ const TableProduct = () => {
       title: "گروه محصول",
       elements: (rowData) => rowData.categories.title,
     },
+
+    {
+      field: null,
+      title: 'توضیحات محصول',
+      elements: (rowData) => <span dangerouslySetInnerHTML={{ __html: rowData.descriptions }}></span>
+    },
+
     { field: "title", title: "عنوان" },
     { field: "price", title: "قیمت" },
     { field: "stock", title: "موجودی" },
     {
       field: null,
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} handleDeleteProduct={handleDeleteProduct}/>,
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteProduct={handleDeleteProduct} />,
     },
   ];
   const searchParams = {
@@ -37,7 +44,7 @@ const TableProduct = () => {
     placeholder: "قسمتی از عنوان را وارد کنید",
   };
 
-  const handleGetProducts = async (page, count, char)=>{
+  const handleGetProducts = async (page, count, char) => {
     setLoading(true)
     const res = await getProductsService(page, count, char)
     res && setLoading(false)
@@ -47,13 +54,13 @@ const TableProduct = () => {
     }
   }
 
-  const handleSearch = (char)=>{
+  const handleSearch = (char) => {
     setSearchChar(char)
     handleGetProducts(1, countOnPage, char)
   }
 
-  const handleDeleteProduct = async (product)=>{
-    if (await Confirm("حذف محصول",`آیا از حذف ${product.title} اطمینان دارید؟`)) {
+  const handleDeleteProduct = async (product) => {
+    if (await Confirm("حذف محصول", `آیا از حذف ${product.title} اطمینان دارید؟`)) {
       const res = await deleteProductService(product.id);
       if (res.status === 200) {
         Alert("انجام شد", res.data.message, "success");
@@ -62,22 +69,22 @@ const TableProduct = () => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     handleGetProducts(currentPage, countOnPage, searchChar)
-  },[currentPage])
+  }, [currentPage])
 
   return (
     <PaginatedDataTable
-    tableData={data}
-    dataInfo={dataInfo}
-    searchParams={searchParams}
-    loading={loading}
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-    pageCount={pageCount}
-    handleSearch={handleSearch}
+      tableData={data}
+      dataInfo={dataInfo}
+      searchParams={searchParams}
+      loading={loading}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      pageCount={pageCount}
+      handleSearch={handleSearch}
     >
-      <AddButtonLink href={"/products/add-product"}/>
+      <AddButtonLink href={"/products/add-product"} />
     </PaginatedDataTable>
   );
 };
