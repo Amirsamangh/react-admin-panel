@@ -49,7 +49,7 @@ export const validationSchema = Yup.object({
   brand_id: Yup.number(),
   color_ids: Yup.string().matches(/^[0-9\s-]+$/, "فقط ازاعداد و خط تیره استفاده شود"),
   guarantee_ids: Yup.string().matches(/^[0-9\s-]+$/, "فقط ازاعداد و خط تیره استفاده شود"),
-  descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
+  descriptions: Yup.string(),
   short_descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
   cart_descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
   image: Yup.mixed()
