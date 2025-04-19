@@ -20,6 +20,7 @@ import CategoryChildren from './category/CategoryChildren';
 import Attrbute from './category/attrs/Attrbute';
 import Brands from './brand/Brands';
 import AddProduct from './product/AddProduct';
+import SetAttribute from './product/setAttr/SetAttributes';
 
 const Content = () => {
 
@@ -38,6 +39,8 @@ const Content = () => {
               
               <Route path='/products' element={<Product/>}/>
               <Route path='/products/add-product' element={<AddProduct/>}/>
+              <Route path='/products/set-attr' element={<SetAttribute/>}/>
+              
               <Route path='/colors' element={<Color/>}/>
               <Route path='/guaranties' element={<Guarantee/>}/>
               <Route path='/brands' element={<Brands/>}/>

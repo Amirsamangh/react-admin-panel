@@ -8,8 +8,8 @@
 }
 
 body{
-    /* background: url(/assets/images/body_back4.jpg) repeat; */
-    background-color: #f1f1f1;
+    background: url(/assets/images/body_back4.jpg) repeat;
+    /* background-color: #f1f1f1; */
 }
 
 *{
@@ -336,8 +336,8 @@ td , th {
     left: 0;
     overflow: auto;
     transition: all 300ms ease;
-    /* background: url(/assets/images/body_back4.png) repeat; */
-    background-color: #f1f1f1;
+    background: url(/assets/images/body_back4.png) repeat;
+    /* background-color: #f1f1f1; */
 }
 #content_section.with_sidebar{
     width: calc(100% - 250px);
