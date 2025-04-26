@@ -13,7 +13,7 @@ const Index = () => {
 
           <Avatar
           name='امیرسامان'
-          imagePath="/assets/images/avatar/user4.jpg"
+          imagePath="/assets/images/avatar/user6.png"
           />
 
           <SidebarItem targetPth='/' title='داشبورد' icon=' fas fa-tachometer-alt'/>

@@ -1,3 +1,4 @@
+
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -9,8 +10,8 @@ import SpinnerLoad from "../../components/SpinnerLoad";
 import { getAllBrandsService } from "../../services/brands";
 import { getCategoriesService } from "../../services/category";
 import { initialValues, onSubmit, validationSchema } from "./core";
-import { getAllGuaranteesService } from "../../services/guarantee";
 import { getAllcolorsService } from "../../services/colors";
+import { getAllGuaranteesService } from "../../services/guarantee";
 
 const AddProduct = () => {
   const location = useLocation()
