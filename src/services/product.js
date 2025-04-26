@@ -24,3 +24,11 @@ export const addProductAttrsService = (productId , data)=>{
 export const addProductImage = (productId, data)=>{
   return httpService(`/admin/products/${productId}/add_image`, 'post', data)
 }
+
+export const deleteProductImageService = (imageId)=>{
+  return httpService(`/admin/products/gallery/${imageId}` , 'delete')
+}
+
+export const setMainProductImageService = (imageId) =>{
+  return httpService(`/admin/products/gallery/set_main/${imageId}` , 'get')
+}
