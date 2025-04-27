@@ -4,7 +4,7 @@ import PaginatedTable from '../../../components/PaginatedTable';
 import ShowInFilter from './ShowInFilter';
 import AttrActions from './AttrActions';
 import PrevPageButton from '../../../components/PrevPageButton';
-import { deleteCategoryAttrService , getCategoryAttrService } from '../../../services/categoryAttr';
+import { deleteCategoryAttrService, getCategoryAttrService } from '../../../services/categoryAttr';
 import { Alert, Confirm } from '../../../utils/alerts';
 import AddAttrs from './AddAttrs';
 
@@ -20,18 +20,18 @@ const AddAttrbute = () => {
         { field: 'id', title: '#' },
         { field: 'unit', title: 'واحد' },
         { field: 'title', title: 'عنوان محصول' },
-    ]
-    const additionalFieald = [
         {
+            field: null,
             title: 'عملیات',
             elements: (rowData) => <AttrActions rowData={rowData} setAttrToEdit={setAttrToEdit} attrToEdit={attrToEdit} handleDeleteCategoryAttr={handleDeleteCategoryAttr} />
         },
         {
+            field: null,
             title: 'نمایش در فیلتر',
             elements: (rowData) => <ShowInFilter rowData={rowData} />
         },
-        
     ]
+
     const searchParams = {
         title: 'جستجو',
         placeholder: 'قسمتی از عنوان را وارد کنید',
@@ -94,18 +94,17 @@ const AddAttrbute = () => {
                             <h5 className='text-danger'>{location.state.categoryData.title}</h5>
                         </div>
                     </div>
-                    <AddAttrs 
-                    reinitialValues={reinitialValues}
-                    location={location}
-                    setData={setData}
-                    attrToEdit={attrToEdit}
-                    setAttrToEdit={setAttrToEdit}
+                    <AddAttrs
+                        reinitialValues={reinitialValues}
+                        location={location}
+                        setData={setData}
+                        attrToEdit={attrToEdit}
+                        setAttrToEdit={setAttrToEdit}
                     />
                     <hr />
                     <PaginatedTable
                         data={data}
                         dataInfo={dataInfo}
-                        additionalFieald={additionalFieald}
                         numOfPages={5}
                         searchParams={searchParams}
                         loading={loading}

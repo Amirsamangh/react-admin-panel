@@ -55,23 +55,23 @@ const CategoryTable = () => {
         { field: 'id', title: '#' },
         { field: 'title', title: 'عنوان محصول' },
         { field: 'parent_id', title: 'والد' },
-    ]
-
-
-    const additionalFieald = [
         {
+            field: null,
             title: 'تاریخ',
             elements: (rowData) => convertDateToLalali(rowData.created_at)
         },
         {
+            field: null,
             title: 'نمایش در منو',
             elements: (rowData) => <ShowInMenu rowData={rowData} />
         },
         {
+            field: null,
             title: 'عملیات',
             elements: (rowData) => <Actions rowData={rowData} handleDeleteCategory={handleDeleteCategory} />
         }
     ]
+
     const searchParams = {
         title: 'جستجو',
         placeholder: 'قسمتی از عنوان را وارد کنید',
@@ -83,7 +83,6 @@ const CategoryTable = () => {
             <PaginatedTable
                 data={data}
                 dataInfo={dataInfo}
-                additionalFieald={additionalFieald}
                 searchParams={searchParams}
                 numOfPages={8}
                 loading={loading}

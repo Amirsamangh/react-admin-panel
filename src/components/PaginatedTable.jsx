@@ -3,7 +3,7 @@ import Addcategory from '../pages/category/AddCategory';
 import SpinnerLoad from './SpinnerLoad';
 
 
-const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchParams, numOfPages, loading }) => {
+const PaginatedTable = ({ children, data, dataInfo, searchParams, numOfPages, loading }) => {
 
     const [initData, setInitData] = useState(data);
     const [tableData, setTableData] = useState([]);
@@ -59,34 +59,33 @@ const PaginatedTable = ({ children, data, dataInfo, additionalFieald, searchPara
                 loading ? (
                     <div className="text-center">
                         <SpinnerLoad
-                        colorClass='text-primary'
-                        isSmall={false}
-                        inline={true}
-                    />
+                            colorClass='text-primary'
+                            isSmall={false}
+                            inline={true}
+                        />
                     </div>
-                    
+
                 ) : data.length ? (
                     <table className="table table-responsive text-center table-hover table-bordered">
                         <thead className="table-secondary">
                             <tr>
-                                {dataInfo.map(i => (
-                                    <th key={i.field}>{i.title}</th>
+                                {dataInfo.map((i, index) => (
+                                    <th key={i.field || `notField__${index}`}>{i.title}</th>
                                 ))}
-                                {additionalFieald ? additionalFieald.map((a, index) => (
-                                    <th key={a.id + '__' + index}>{a.title}</th>
-                                )) : null}
                             </tr>
                         </thead>
                         <tbody>
-                            {tableData.map(d => (
+                            {tableData.map((d) => (
                                 <tr key={d.id}>
-                                    {dataInfo.map(i => (
-                                        <td key={i.field + '_' + d.id}>{d[i.field]}</td>
+                                    {dataInfo.map((i, index) => (
+                                        i.field ? (
+                                            <td key={i.field + '_' + d.id}>{d[i.field]}</td>
+                                        ) : (
+                                            <td key={d.id + '__' + i.id + '__' + index}>
+                                                {i.elements(d)}
+                                            </td>
+                                        )
                                     ))}
-                                    {additionalFieald ? additionalFieald.map((a, index) => (
-                                        <td key={a.id + '___' + index}>{a.elements(d)}</td>
-                                    )) : null
-                                    }
                                 </tr>
                             ))}
                         </tbody>

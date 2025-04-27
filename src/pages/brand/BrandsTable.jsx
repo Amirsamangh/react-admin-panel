@@ -16,19 +16,18 @@ const BrandTable = () => {
         {field: 'original_name' , title: 'عنوان'},
         {field: 'persian_name' , title: 'عنوان فارسی'},
         {field: 'descriptions' , title: 'توضیحات'},
+        {
+            field: null ,
+            title: "لوگو",
+            elements: (rowData) =>
+              rowData.logo ? <img src={apiPath+"/"+rowData.logo} width="40" /> : null,
+          },
+          {
+            field: null ,
+            title: "عملیات",
+            elements: (rowData) => <Actions rowData={rowData} setBrandToEdit={setBrandToEdit} handleDeleteBrand={handleDeleteBrand} />,
+          },
     ]
-
-    const additionalFieald = [
-        {
-          title: "لوگو",
-          elements: (rowData) =>
-            rowData.logo ? <img src={apiPath+"/"+rowData.logo} width="40" /> : null,
-        },
-        {
-          title: "عملیات",
-          elements: (rowData) => <Actions rowData={rowData} setBrandToEdit={setBrandToEdit} handleDeleteBrand={handleDeleteBrand} />,
-        },
-      ];
 
     const searchParams = {
         title: 'جستجو',
@@ -39,7 +38,6 @@ const BrandTable = () => {
     const handleGetAllBrands = async ()=>{
         setLoading(true)
         const res = await getAllBrandsService()
-        console.log(res);
         
         res && setLoading(false) // اگر رس مقدار داشت لودینگ فالس شود
         if(res.status === 200 ) {
@@ -65,7 +63,6 @@ const BrandTable = () => {
             <PaginatedTable
                 data={data}
                 dataInfo={dataInfo}
-                additionalFieald={additionalFieald}
                 numOfPages={6}
                 searchParams={searchParams}
                 loading={loading}
