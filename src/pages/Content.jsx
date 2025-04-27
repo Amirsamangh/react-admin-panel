@@ -22,6 +22,7 @@ import Brands from './brand/Brands';
 import AddProduct from './product/AddProduct';
 import SetAttribute from './product/setAttr/SetAttributes';
 import ProductGallery from './product/gallery/ProductGallery';
+import AddDiscount from './discount/AddDiscount';
 
 const Content = () => {
 
@@ -46,7 +47,9 @@ const Content = () => {
               <Route path='/colors' element={<Color/>}/>
               <Route path='/guaranties' element={<Guarantee/>}/>
               <Route path='/brands' element={<Brands/>}/>
-              <Route path='/discounts' element={<Discount/>}/>
+              <Route path='/discounts' element={<Discount/>}>
+                <Route path='/discounts/add-discount-code' element={<AddDiscount />} />
+              </Route>
               <Route path='/carts' element={<Cart/>}/>
               <Route path='/orders' element={<Order/>}/>
               <Route path='/deliverires' element={<Delivery/>}/>

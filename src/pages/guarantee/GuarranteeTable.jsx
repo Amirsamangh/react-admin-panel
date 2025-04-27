@@ -16,10 +16,8 @@ const GuarranteeTable = () => {
         {field : 'descriptions'  , title : 'توضیحات'},
         {field : 'length'  , title : 'مدت گارانتی'},
         {field : 'length_unit'  , title : 'واحد'},
-    ]
-
-    const additionalField = [
         {
+            field: null ,
             title: 'عملیات',
             elements: (rowData)=> <Actions rowData={rowData} setGuaranteeToEdit={setGuaranteeToEdit} handleDeleteGuarantee={handleDeleteGuarantee} />
         },
@@ -35,7 +33,6 @@ const GuarranteeTable = () => {
         setLoading(true)
         try {
             const res = await getAllGuaranteesService()
-            console.log(res);
             
             if(res.status === 200) {
                 setData(res.data.data)
@@ -66,7 +63,6 @@ const GuarranteeTable = () => {
         <PaginatedTable
             data={data}
             dataInfo={dataInfo}
-            additionalFieald={additionalField}
             numOfPages={8}
             searchParams={searchParams}
             loading={loading}
