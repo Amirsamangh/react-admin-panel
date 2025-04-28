@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import PrevPageButton from "../../../components/PrevPageButton";
 import { apiPath } from "../../../services/httpService";
 import { useState } from "react";
-import { addProductImage, deleteProductImageService, setMainProductImageService } from "../../../services/product";
+import { addProductImage, addProductImageService, deleteProductImageService, setMainProductImageService } from "../../../services/product";
 import { Alert, Confirm } from "../../../utils/alerts";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 
@@ -28,7 +28,7 @@ const ProductGallery = () => {
 
         console.log(formdata);
 
-        const res = await addProductImage(selectedProduct.id, formdata)
+        const res = await addProductImageService(selectedProduct.id, formdata)
         console.log(res);
         setLoading(false)
         if (res.status === 201) {
