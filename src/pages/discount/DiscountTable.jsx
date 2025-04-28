@@ -62,15 +62,15 @@ const DiscountTable = () => {
     return (
 
         <>
-            <PaginatedTable
-                data={data}
-                numOfPages={8}
-                dataInfo={dataInfo}
-                searchParams={searchParams}
-            >
-                <AddButtonLink href={'/discounts/add-discounts-code'} />
-                <Outlet />
-            </PaginatedTable>
+                    <PaginatedTable
+                        data={data}
+                        numOfPages={8}
+                        dataInfo={dataInfo}
+                        searchParams={searchParams}
+                    >
+                        <AddButtonLink href={'/discounts/add-discount-code'} />
+                        <Outlet />
+                    </PaginatedTable>
         </>
 
     );
