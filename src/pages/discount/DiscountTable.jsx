@@ -69,7 +69,7 @@ const DiscountTable = () => {
                         searchParams={searchParams}
                     >
                         <AddButtonLink href={'/discounts/add-discount-code'} />
-                        <Outlet />
+                        <Outlet context={{setData}} />
                     </PaginatedTable>
         </>
 

@@ -475,6 +475,10 @@ td , th {
     opacity: 0 !important;
 }
 
+.back_smoke {
+    background-color: #0000009a !important;
+}
+
 /* content end-------<<<<<<< */
 
 /* datepicker ------------->>>>>>>>>> */
