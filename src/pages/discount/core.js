@@ -1,7 +1,7 @@
 import { Alert } from "../../utils/alerts";
 import * as Yup from "yup";
 import jMoment from 'jalali-moment';
-import { addNewDiscountService } from "../../services/discount";
+import { addNewDiscountService, updateDiscountService } from "../../services/discount";
 import { convertFormDateToMiladi } from "../../utils/convertDate";
 
 export const initialValues = {
@@ -13,18 +13,33 @@ export const initialValues = {
     product_ids: "",
 };
 
-export const onSubmit = async (values, actions , setData) => {
+export const onSubmit = async (values, actions, setData, discountToEdit) => {
     values = {
         ...values,
         expire_at: convertFormDateToMiladi(values.expire_at)
     }
 
-    const res = await addNewDiscountService(values)
-    if(res.status === 201 ) {
-        Alert('انجام شد' , res.data.message , 'success')
-        actions.resetForm()
-        setData(old=>[...old , res.data.data])
+    if (discountToEdit) {
+        const res = await updateDiscountService(discountToEdit.id , values)
+        if(res.status === 200) {
+            Alert("انجام شد" , res.data.message , 'success')
+            setData(lastData=>{
+                let newData = [...lastData]
+                let index = newData.findIndex(d=> d.id == discountToEdit.id)
+                newData[index] = res.data.data
+                return newData;
+            })
+        }
+    } else {
+        const res = await addNewDiscountService(values)
+        if (res.status === 201) {
+            Alert('انجام شد', res.data.message, 'success')
+            actions.resetForm()
+            setData(old => [...old, res.data.data])
+        }
     }
+
+
 };
 
 export const validationSchema = Yup.object()
@@ -42,6 +57,6 @@ export const validationSchema = Yup.object()
         for_all: Yup.boolean(),
         product_ids: Yup.string().when('for_all', {
             is: false,
-            then: p=> p.required("لطفا این قسمت را پر کنید").matches(/^[0-9\s-]+$/, "فقط ازاعداد و خط تیره استفاده شود"),
+            then: p => p.required("لطفا این قسمت را پر کنید").matches(/^[0-9\s-]+$/, "فقط ازاعداد و خط تیره استفاده شود"),
         }),
     })

@@ -5,7 +5,7 @@ import { deleteCategoryService, getCategoriesService } from '../../services/cate
 import ShowInMenu from './tableAddition/showInMenu';
 import Actions from './tableAddition/Actions';
 import { Outlet, useParams } from 'react-router-dom';
-import { convertDateToLalali } from '../../utils/convertDate';
+import { convertDateToJalali } from '../../utils/convertDate';
 import { Alert, Confirm } from '../../utils/alerts';
 
 const CategoryTable = () => {
@@ -58,7 +58,7 @@ const CategoryTable = () => {
         {
             field: null,
             title: 'تاریخ',
-            elements: (rowData) => convertDateToLalali(rowData.created_at)
+            elements: (rowData) => convertDateToJalali(rowData.created_at)
         },
         {
             field: null,

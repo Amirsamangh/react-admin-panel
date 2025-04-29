@@ -12,10 +12,10 @@ export const getOneDiscountService = (discountId) =>{
     return httpService(`/admin/discounts/${discountId}` , 'get')
 }
 
-export const editDiscountService = (discountId , data)=>{
-    return httpService(`/admin/discounts/${discountId}` , 'put' , data)
-}
-
 export const deleteDiscountService = (discountId)=>{
     return httpService(`/admin/discounts/${discountId}` , 'delete')
+}
+
+export const updateDiscountService = (discountId , data)=>{
+    return httpService(`/admin/discounts/${discountId}` , 'put' , data)
 }

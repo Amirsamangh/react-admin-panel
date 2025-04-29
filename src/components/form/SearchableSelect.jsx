@@ -6,7 +6,7 @@ import FormikError from "./FormikError";
 
 // if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
 
-const SearchableSelect = ({resultType, options, name, label, className, firstItem, initialItems , key}) => {
+const SearchableSelect = ({resultType, options, name, label, className, firstItem, initialItems }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showItems, setShowItems] = useState(false);
   const [copyOptions , setCopyOptions]=useState(options);
@@ -52,7 +52,7 @@ const SearchableSelect = ({resultType, options, name, label, className, firstIte
     <Field>
         {({form})=>{
             return (
-                <div key={key || ''} className={`col-12 ${className}`}>            
+                <div className={`col-12 ${className}`}>            
                     <div className="input-group mb-3 dir_ltr pointer" onClick={(e)=>{
                         e.stopPropagation()
                         setShowItems(!showItems)
