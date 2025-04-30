@@ -17,7 +17,7 @@ axios.interceptors.response.use((res)=>{
     }
     return res
 },(error)=>{
-    Alert(error.response.status, "مشکلی رخ داده است", "error");
+    Alert(error.response.status, error.response.data?.message ||  "مشکلی رخ داده است", "error");
     return Promise.reject(error)
 })
 
@@ -32,4 +32,4 @@ const httpService = (url, method, data=null)=>{
         }
     })
 }
-export default httpService
+export default httpService;
