@@ -1,6 +1,5 @@
 import React from 'react';
 import DiscountTable from './DiscountTable';
-import AddDiscount from './AddDiscount';
 
 const Discount = () => {
     return (
