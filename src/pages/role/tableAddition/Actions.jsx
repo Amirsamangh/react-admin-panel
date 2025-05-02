@@ -10,7 +10,14 @@ const Actions = ({rowData , handleDeleteRole}) => {
                 title="ویرایش نقش"
                 data-bs-toggle='tooltip'
                 data-bs-placement='top'
-                onClick={()=>navigate('/roles/add-role' , {state:{roleToEdit:rowData}})}
+                onClick={()=>navigate('/roles/add-role' , {state:{roleToEdit:rowData.id , editType: 'role'}})}
+            ></i>
+            <i
+                className="fas fa-fingerprint text-info mx-1 hoverable_text pointer"
+                title="ویرایش دسترسی ها"
+                data-bs-toggle='tooltip'
+                data-bs-placement='top'
+                onClick={()=>navigate('/roles/add-role' , {state:{roleToEdit:rowData.id , editType: 'permissions'}})}
             ></i>
             <i
                 className="fas fa-remove text-danger mx-1 hoverable_text pointer"
