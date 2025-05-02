@@ -8,6 +8,7 @@ import MultiSelect from './MultiSelect';
 import SearchableSelect from './SearchableSelect';
 import Ckeditor from './Ckeditor';
 import Date from './Date';
+import CheckBox from './CheckBox';
 
 const FormikControl = (props) => {
     switch (props.control) {
@@ -37,6 +38,9 @@ const FormikControl = (props) => {
             
         case 'date':
             return <Date {...props} />
+        
+        case 'checkBox':
+            return <CheckBox {...props} />
 
         default:
             return null
