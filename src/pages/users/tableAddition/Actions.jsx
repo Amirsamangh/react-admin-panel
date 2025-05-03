@@ -7,7 +7,7 @@ const Actions = ({ rowData , handleDeleteUser }) => {
             <i
                 className="fas fa-edit text-warning mx-1 hoverable_text pointer"
                 title="ویرایش کاربر"
-                onClick={() => navigation('/users/add-user', { state: { userId: rowData.id } })}
+                onClick={() => navigation('/users/add-user', { state: { userIdToEdit: rowData.id } })}
             ></i>
             <i
                 className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
