@@ -5,22 +5,25 @@ export const initialValues = {
     first_name: '',
     last_name: '',
     phone: '',
-    national_code: 0,
+    national_code: '',
     email: '',
     password: '',
     birth_date: '',
-    gender: true,
+    gender: 1,
     roles_id: [],
 }
 
-export const onSubmit = (values, actions) => { }
+export const onSubmit = (values, actions , setData , userIdToEdit) => {}
 
-export const validationSchema = Yup.object({
-    user_name: Yup.string().required('*').matches(/^[u0600-\u06FF\sa-zA-Z0-9@!%&-.?]+$/ , 'فقط از حروف فارسی و لاتین و اعداد استفاده شود'),
-    first_name: Yup.string().required('*').matches(/^[u0600-\u06FF\sa-zA-Z]+$/ , 'فقط از حروف فارسی و لاتین استفاده شود'),
-    last_name: Yup.string().required('*').matches(/^[u0600-\u06FF\sa-zA-Z]+$/ , 'فقط از حروف فارسی و لاتین استفاده شود'),
-    phone: Yup.string().required('*').matches(/^[0-9]+$/ , 'فقط از اعداد استفاده شود'),
-    national_code: Yup.number().required('*'),
-    email: Yup.string().email().required('*'),
-    password: Yup.string().required('*').matches(/^[u0600-\u06FF\sa-zA-Z0-9@!%&-._?]+$/).min(8 , 'حداقل 8 کاراکتر وارد کنید')
+export const validationSchema = Yup.object().shape({
+    user_name: Yup.string().required('لطفا این قسمت را پر کنید').matches(/^[u0600-\u06FF\sa-zA-Z0-9@!%&-.?]+$/ , 'فقط از حروف فارسی و لاتین و اعداد استفاده شود'),
+    first_name: Yup.string().matches(/^[u0600-\u06FF\sa-zA-Z]+$/ , 'فقط از حروف فارسی و لاتین استفاده شود'),
+    last_name: Yup.string().matches(/^[u0600-\u06FF\sa-zA-Z]+$/ , 'فقط از حروف فارسی و لاتین استفاده شود'),
+    phone: Yup.number().required('لطفا این قسمت را پر کنید'),
+    national_code: Yup.number().required('لطفا این قسمت را پر کنید'),
+    email: Yup.string().email('لطفا از فرمت صحیح ایمیل استفاده کنید'),
+    password: Yup.string().required('لطفا این قسمت را پر کنید').matches(/^[u0600-\u06FF\sa-zA-Z0-9@!%&-._?]+$/).min(8 , 'حداقل 8 کاراکتر وارد کنید'),
+    birth_date: Yup.string().matches(/^[0-9/\ \s-]+$/ , 'فقط از اعداد و خط تیره استفاده شود'),
+    gender: Yup.number(),
+    roles_id: Yup.array().min(1 , 'حد اقل یک مورد را انتخاب کنید'),
 })
