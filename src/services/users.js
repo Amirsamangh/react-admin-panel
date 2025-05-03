@@ -27,3 +27,11 @@ export const editRolePermissionsService = (roleId , data)=>{
 export const deleteRoleService = (roleId)=>{
     return httpService(`/admin/roles/${roleId}` , 'delete')
 }
+
+export const getAllUsersService = (page , countOnPage , searchChar)=>{
+    return httpService(`/admin/users?page=${page}&count=${countOnPage}&searchChar=${searchChar}` , 'get')
+}
+
+export const deleteUserService = (userId) =>{
+    return httpService(`/admin/users/${userId}` , 'delete')
+}

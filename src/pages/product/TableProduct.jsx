@@ -18,6 +18,7 @@ const TableProduct = () => {
 
   const dataInfo = [
     { field: "id", title: "#" },
+    { field: "title", title: "عنوان" },
     {
       field: null,
       title: "گروه محصول",
@@ -30,7 +31,6 @@ const TableProduct = () => {
       elements: (rowData) => <span dangerouslySetInnerHTML={{ __html: rowData.descriptions }}></span>
     },
 
-    { field: "title", title: "عنوان" },
     { field: "price", title: "قیمت" },
     { field: "stock", title: "موجودی" },
     {

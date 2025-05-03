@@ -1,20 +1,31 @@
 import React from 'react';
 import ModalsContainer from '../../components/ModalsContainer';
+import { Formik } from 'formik';
+import { Form, useNavigate } from 'react-router-dom';
+import FormikControl from '../../components/form/FormikControl';
+import { initialValues, onSubmit, validationSchema } from './core';
 
 const AddUsers = () => {
+    const navigate = useNavigate()
     return (
         <>
-            <button className="btn btn-success d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add_user_modal">
-                <i className="fas fa-plus text-light"></i>
-            </button>
-
             <ModalsContainer
                 fullScreen={true}
                 id='add_user_modal'
                 title='افزودن کاربر'
+                closeFunction={()=>navigate(-1)}
             >
                 <div className="container">
                     <div className="row justify-content-center">
+                        <Formik
+                            initialValues={initialValues}
+                            onSubmit={(values, actions) => onSubmit(values, actions)}
+                            validationSchema={validationSchema}
+                        >
+                            <Form>
+                                <FormikControl />
+                            </Form>
+                        </Formik>
                         <div className="col-12 col-md-6 col-lg-8">
                             <div className="input-group my-1 dir_ltr">
                                 <input type="text" className="form-control" placeholder="فقط از حروف استفاده شود" />

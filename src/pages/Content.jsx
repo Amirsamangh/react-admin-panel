@@ -24,6 +24,7 @@ import SetAttribute from './product/setAttr/SetAttributes';
 import ProductGallery from './product/gallery/ProductGallery';
 import AddDiscount from './discount/AddDiscount';
 import AddRole from './role/AddRole';
+import AddUsers from './users/AddUsers';
 
 const Content = () => {
 
@@ -48,13 +49,18 @@ const Content = () => {
         <Route path='/colors' element={<Color />} />
         <Route path='/guaranties' element={<Guarantee />} />
         <Route path='/brands' element={<Brands />} />
+
         <Route path='/discounts' element={<Discount />}>
           <Route path='/discounts/add-discount-code' element={<AddDiscount />} />
         </Route>
+        
         <Route path='/carts' element={<Cart />} />
         <Route path='/orders' element={<Order />} />
         <Route path='/deliverires' element={<Delivery />} />
-        <Route path='/users' element={<Users />} />
+
+        <Route path='/users' element={<Users />}>
+          <Route path='/users/add-user' element={<AddUsers />} />
+        </Route>
 
         <Route path='/roles' element={<Role />}>
           <Route path='/roles/add-role' element={<AddRole />} />
