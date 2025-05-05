@@ -32,10 +32,6 @@ export const getAllUsersService = (page, countOnPage, searchChar) => {
     return httpService(`/admin/users?page=${page}&count=${countOnPage}&searchChar=${searchChar}`, 'get')
 }
 
-export const deleteUserService = (userId) => {
-    return httpService(`/admin/users/${userId}`, 'delete')
-}
-
 export const getSingleUserService = (userId) => {
     return httpService(`/admin/users/${userId}`, 'get')
 }
@@ -44,6 +40,10 @@ export const addNewUserService = (data) => {
     return httpService('/admin/users', 'post', data)
 }
 
-export const editUserSevice = (userId, data) => {
+export const editUserService = (userId, data) => {
     return httpService(`/admin/users/${userId}`, 'put', data)
+}
+
+export const deleteUserService = (userId) => {
+    return httpService(`/admin/users/${userId}`, 'delete')
 }
