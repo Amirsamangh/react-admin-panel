@@ -6,6 +6,7 @@ import PaginatedDataTable from "../../components/PaginatedDataTable";
 import { Alert, Confirm } from "../../utils/alerts";
 import Actions from "./tableAddition/Actions";
 import { deleteUserService, getAllUsersService } from "../../services/users";
+import Roles from "./tableAddition/Roles";
 
 const UsersTable = () => {
     const [data, setData] = useState([]);
@@ -22,6 +23,11 @@ const UsersTable = () => {
             field: null,
             title: "نام",
             elements: (rowData) => `${rowData.first_name || ''} ${rowData.last_name || ''}`
+        },
+        {
+            field: null,
+            title: "نقش",
+            elements: (rowData)=> <Roles rowData={rowData} />
         },
         { field: "last_name", title: "نام خانوادگی" },
         { field: "phone", title: "شماره موبایل" },
@@ -83,7 +89,7 @@ const UsersTable = () => {
             handleSearch={handleSearch}
         >
             <AddButtonLink href={'/users/add-user'} />
-            <Outlet context={setData} />
+            <Outlet context={{setData}} />
         </PaginatedDataTable>
     );
 };
