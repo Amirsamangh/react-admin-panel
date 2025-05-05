@@ -2,17 +2,21 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import httpService from "../services/httpService";
 import { getUserService } from "../services/auth";
+import { useDispatch } from "react-redux";
+import { recieveRolesResponse } from "../redux/roles/rolesActions";
 
 export const useIsLogin = () => {
     const [isLogin, setIsLogin] = useState(false)
     const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch()
 
     const handleCheckLogin = async ()=>{
-        const res = await getUserService()
         try {
+            const res = await getUserService()
             setIsLogin(res.status === 200 ? true : false)
             setLoading(false)
-        } catch {
+            dispatch(recieveRolesResponse(res.data.roles))
+        } catch(error) {
             localStorage.removeItem('loginToken')
             setIsLogin(false)
             setLoading(false)
