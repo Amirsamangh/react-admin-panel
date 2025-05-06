@@ -10,19 +10,10 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useIsLogin } from "../../hook/authhook";
 import { useDispatch, useSelector } from "react-redux";
-import { getRolesActionRedux } from "../../redux/roles/rolesActions";
+import { getUserActionRedux } from "../../redux/user/userActions";
 
 const AdminLayout = () => {
   const [loading, isLogin] = useIsLogin();
-  const { roles, error } = useSelector(state => state.rolesReducer)
-  const dispatch = useDispatch()
-
-
-  // useEffect(() => {
-  //   dispatch(getRolesActionRedux())
-  // }, [])
-
-  console.log(roles);
 
   return (
     <AdminContextContainer>
@@ -42,14 +33,6 @@ const AdminLayout = () => {
         )
       }
     </AdminContextContainer>
-
-    // <AdminContextContainer>
-    //   <div>
-    //     <Content />
-    //     <Navbar />
-    //     <Sidebar />
-    //   </div>
-    // </AdminContextContainer>
   );
 };
 
