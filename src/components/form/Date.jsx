@@ -56,10 +56,10 @@ const Date = ({formik,name,label,yearsLimit , initialDate , className}) => {
     return (
         <div className={`validate-input form_date_picker ${className}`} >
 
-            <div className="input-group mb-3 dir_ltr pointer" onClick={handleShowDateConfig}>
-                <FastField type="text" name={name} className="form-control pointer" placeholder={'جهت انتخاب تاریخ کلیک کنید'} disabled/>
-                <span className="input-group-text w_6rem justify-content-center"> {label} </span>
-            </div>
+            <span className="input-group mb-3 dir_ltr pointer" onClick={handleShowDateConfig}>
+                <FastField  type="text" name={name} className="form-control pointer" placeholder={'جهت انتخاب تاریخ کلیک کنید'} disabled/>
+                <label className="input-group-text w_6rem justify-content-center"> {label} </label>
+            </span>
             
             {
                 showConfig ? (

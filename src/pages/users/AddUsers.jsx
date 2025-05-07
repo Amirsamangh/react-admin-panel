@@ -145,11 +145,11 @@ const AddUsers = () => {
                                                 yearsLimit={{ from: 100, to: 0 }}
                                             />
                                             <FormikControl
-                                                className='col-md-6 col-lg-8'
-                                                control='select'
-                                                name='gender'
-                                                label='جنسیت'
-                                                options={[{ id: 1, value: 'مرد' }, { id: 0, value: 'زن' }]}
+                                                className="col-md-6 col-lg-8"
+                                                control="select"
+                                                options={[{id:1 , value: "مرد"} ,{id:0 , value: "زن"}]}
+                                                name="gender"
+                                                label="جنسیت"
                                             />
                                             <FormikControl
                                                 label='نقش ها'

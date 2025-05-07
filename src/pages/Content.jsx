@@ -25,17 +25,40 @@ import ProductGallery from './product/gallery/ProductGallery';
 import AddDiscount from './discount/AddDiscount';
 import AddRole from './role/AddRole';
 import AddUsers from './users/AddUsers';
+import { useSelector } from 'react-redux';
 
 const Content = () => {
-
   const { showSidebar } = useContext(AdminContext)
+  
+  const user = useSelector(state => state.userReducer.data)
+  const roles = user.roles
+  let permissions = []
 
+  for(const role of roles) permissions = [...permissions , ...role.permissions]
+  // if(roles.length > 0){
+  //   roles.forEach(role => {
+  //     permissions.push(...role.permissions)
+  //   })
+  // }
+  const hasPermission = (permission) => {
+    return permissions.includes(permission)
+  }
   return (
     <section id="content_section"
       className={`bg-light py-2 px-3 ${showSidebar ? "with_sidebar" : null}`}>
       <Routes>
         <Route path='/' element={<Dashboard />} />
-
+        {hasPermission('read_categories') && (
+          <Route path='/categories' element={<Category />}>
+            <Route path=':categoryId' element={<CategoryChildren />} />
+          </Route>
+        )}
+        {hasPermission('read_category_attr') && (
+          <Route path='/categories/:categoryId/attrbutes' element={<Attrbute />} />
+        )}
+        {hasPermission('read_products') && (
+          <Route path='/products' element={<Product />} />
+        )}
         <Route path='/categories' element={<Category />}>
           <Route path=':categoryId' element={<CategoryChildren />} />
         </Route>
