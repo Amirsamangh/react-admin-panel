@@ -8,7 +8,7 @@ import { deleteCategoryAttrService, getCategoryAttrService } from '../../../serv
 import { Alert, Confirm } from '../../../utils/alerts';
 import AddAttrs from './AddAttrs';
 
-const AddAttrbute = () => {
+const Attribute = () => {
 
     const location = useLocation();
     const [data, setData] = useState([]);
@@ -119,4 +119,4 @@ const AddAttrbute = () => {
     );
 }
 
-export default AddAttrbute;
+export default Attribute;
