@@ -16,7 +16,7 @@ const PermissionsTable = () => {
     const searchParams = {
         title: 'عنوان',
         placeholder: 'قسمتی از عنوان را وارد کنید',
-        searchField: 'description',
+        searchField: 'title',
     }
 
     const handleGetAllPermissions = async ()=>{
