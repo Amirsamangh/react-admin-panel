@@ -7,6 +7,7 @@ import Actions from './tableAddition/Actions';
 import { Outlet, useParams } from 'react-router-dom';
 import { convertDateToJalali } from '../../utils/convertDate';
 import { Alert, Confirm } from '../../utils/alerts';
+import { useHasPermission } from '../../hook/permissionHook';
 
 const CategoryTable = () => {
 
@@ -14,6 +15,8 @@ const CategoryTable = () => {
     const [data, setData] = useState([]);
     const [forceRender, setForceRender] = useState(0);
     const [loading, setLoading] = useState(false);
+
+    const hasPerm = useHasPermission('create_category');
 
     const handleGetCategories = async () => {
         setLoading(true)
@@ -87,7 +90,7 @@ const CategoryTable = () => {
                 numOfPages={8}
                 loading={loading}
             >
-                <Addcategory setForceRender={setForceRender} />
+                {hasPerm && <Addcategory setForceRender={setForceRender} />}
             </PaginatedTable>
         </>
     );
