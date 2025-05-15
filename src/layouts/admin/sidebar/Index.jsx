@@ -38,7 +38,7 @@ const Index = () => {
 
           <SidebarItem targetPth='/carts' icon='fas fa-shopping-basket' title='مدیریت سبد ها' pTitle={"read_carts"} />
           <SidebarItem targetPth='/orders' icon='fas fa-luggage-cart' title='مدیریت سفارشات' pTitle={"read_orders"} />
-          <SidebarItem targetPth='/deliverires' icon='fas fa-truck-loading' title='مدیریت نحوه ارسال' pTitle={"read_deliveries"} />
+          <SidebarItem targetPth='/deliveries' icon='fas fa-truck-loading' title='مدیریت نحوه ارسال' pTitle={"read_deliveries"} />
           
           {/* <!-- =================================== --> */}
 

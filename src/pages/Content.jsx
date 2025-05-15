@@ -28,6 +28,7 @@ import AddUsers from './users/AddUsers';
 import { useSelector } from 'react-redux';
 import { useHasPermission } from '../hook/permissionHook';
 import PermComponent from '../components/PermComponent';
+import AddDelivery from './delivery/AddDelivery';
 
 const Content = () => {
   const { showSidebar } = useContext(AdminContext)
@@ -36,6 +37,7 @@ const Content = () => {
   const hasDiscountPermission = useHasPermission("read_discounts")
   const hasUserPermission = useHasPermission("read_users")
   const hasRolePermission = useHasPermission("read_roles")
+  const hasDeliveryPermission = useHasPermission("read_deliveries")
 
   return (
     <section id="content_section"
@@ -67,7 +69,12 @@ const Content = () => {
 
         <Route path='/carts' element={<Cart />} />
         <Route path='/orders' element={<Order />} />
-        <Route path='/deliverires' element={<Delivery />} />
+
+        {hasDeliveryPermission && (
+          <Route path='/deliveries' element={<Delivery />} >
+            <Route path='/deliveries/add-delivery' element={<PermComponent component={<AddDelivery/>} pTitle='create_delivery' />} />
+          </Route>
+        )}
 
         {hasUserPermission && (
           <Route path='/users' element={<Users />}>
