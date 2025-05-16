@@ -1,17 +1,18 @@
 import React from 'react';
 import ModalsContainer from '../../components/ModalsContainer';
+import { useNavigate } from 'react-router-dom';
 
 const AddCart = () => {
+    const navigate = useNavigate()
     return (
         <>
-            <button className="btn btn-success d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#edit_cart_modal">
-                <i className="fas fa-plus text-light"></i>
-            </button>
 
             <ModalsContainer
+                className='d-block show'
                 fullScreen={true}
                 id='edit_cart_modal'
                 title='جزئیات سبد خرید'
+                closeFunction={()=>navigate(-1)}
             >
                 <div className="container">
                     <div className="row my-3 justify-content-center">
