@@ -65,7 +65,7 @@ const Addcategory = ({ setForceRender }) => {
       setReInitialValues({
         parent_id: editCategoty.parent_id || '',
         title: editCategoty.title,
-        description: editCategoty.description,
+        descriptions: editCategoty.descriptions,
         image: null,
         is_active: editCategoty.is_active ? true : false,
         show_in_menu: editCategoty.show ? true : false,
@@ -137,7 +137,7 @@ const Addcategory = ({ setForceRender }) => {
                 <FormikControl
                   className='col-md-6 col-lg-8'
                   control='textarea'
-                  name='description'
+                  name='descriptions'
                   label='توضیحات'
                   placeholder='توضیحات'
                 />

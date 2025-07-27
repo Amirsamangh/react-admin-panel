@@ -134,6 +134,9 @@ body{
 .dir_ltr{
     direction: ltr !important;
 }
+.dir_rtl{
+    direction: rtl !important;
+}
 
 .w_6rem{
     width: 6rem !important;

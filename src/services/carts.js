@@ -4,7 +4,7 @@ export const  getAllPaginatedCartsService = (page , countOnPage , searchChar)=>{
     return httpService(`/admin/carts?page=${page}&count=${countOnPage}&searchChar=${searchChar}` , 'get')
 }
  
-export const  addOneCartService = (data)=>{
+export const  addNewCartService = (data)=>{
     return httpService('/admin/carts' , 'post' , data)
 }
  

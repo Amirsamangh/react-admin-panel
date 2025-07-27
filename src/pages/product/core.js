@@ -21,8 +21,6 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions, productToEdit) => {
-  console.log(values);
-  
   if (productToEdit) {
     const res = await editProductService(productToEdit.id, values)
     if (res.status == 200) {

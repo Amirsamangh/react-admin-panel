@@ -6,7 +6,7 @@ import { Alert } from "../../utils/alerts";
 export const initialValues = {
     parent_id: "",
     title: "",
-    description: "",
+    descriptions: "",
     image: null,
     is_active: true,
     show_in_menu: true,
@@ -27,6 +27,7 @@ export const onSubmit = async (values, actions, setForceRender, editId) => {
             const res = await editCategoryService(editId , values);
             if (res.status == 200 ) {
                 Alert('ویرایش رکورد' , res.data.message , 'success')
+                actions.resetForm()
                 setForceRender((last) => last + 1)
             }
         } else {
@@ -48,7 +49,7 @@ export const onSubmit = async (values, actions, setForceRender, editId) => {
 export const validationSchema = Yup.object({
     parent_id: Yup.number(),
     title: Yup.string().required('لطفا این قسمت را پر کنید').matches(/^[u0600-\u06FF\sa-zA-Z0-9!@$%&?]+$/, 'فقط از حروف و اعداد استفاده شود'),
-    description: Yup.string().matches(/^[u0600-\u06FF\sa-zA-Z0-9!@$%&?]+$/, 'فقط از حروف و اعداد استفاده شود'),
+    descriptions: Yup.string().matches(/^[u0600-\u06FF\sa-zA-Z0-9!@$%&?]+$/, 'فقط از حروف و اعداد استفاده شود'),
     image: Yup.mixed().nullable()
         .test("filesize", "حجم فایل نمیتواند بیشتر 500 کیلوبایت باشد", (value) =>
             !value ? true : value.size <= 500 * 1024

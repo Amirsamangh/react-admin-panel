@@ -2,8 +2,8 @@ import { ErrorMessage, FastField, Field } from "formik";
 import React from "react";
 import FormikError from "./FormikError";
 
-const Select = ({options, name, label, className, firstItem, handleOnchange}) => {
-    const setOptions = ()=>{
+const Select = ({ options, name, label, className, firstItem, handleOnchange, handleSetMain }) => {
+    const setOptions = () => {
         return (
             <>
                 <option value=""> {firstItem} </option>
@@ -13,24 +13,27 @@ const Select = ({options, name, label, className, firstItem, handleOnchange}) =>
             </>
         )
     }
-  return (
+    return (
         <div className={`col-12 ${className}`}>
             <div className="input-group mb-3 dir_ltr">
                 <Field>
-                    {({form})=>{
+                    {({ form }) => {
                         return (
                             <>
                                 {
                                     handleOnchange ? (
-                                        <Field as="select" className="form-control" id={name} name={name} 
-                                        onChange={(e)=>handleOnchange(e.target.value, form) }
+                                        <Field as="select" className="form-control" id={name} name={name}
+                                            onChange={(e) => {
+                                                handleOnchange(e.target.value, form)
+                                                handleSetMain(e.target.value)
+                                            }}
                                         >
                                             {setOptions()}
                                         </Field>
                                     ) : (
                                         <Field as="select" className="form-control" id={name} name={name}>
                                             {setOptions()}
-                                        </Field>                                        
+                                        </Field>
                                     )
                                 }
                             </>
@@ -39,9 +42,9 @@ const Select = ({options, name, label, className, firstItem, handleOnchange}) =>
                 </Field>
                 <span className="input-group-text w_6rem justify-content-center">{label}</span>
             </div>
-            <ErrorMessage name={name} component={FormikError}/>
+            <ErrorMessage name={name} component={FormikError} />
         </div>
-  );
+    );
 };
 
 export default Select;

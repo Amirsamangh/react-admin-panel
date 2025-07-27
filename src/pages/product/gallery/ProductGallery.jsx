@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import PrevPageButton from "../../../components/PrevPageButton";
 import { apiPath } from "../../../services/httpService";
 import { useState } from "react";
-import { addProductImage, addProductImageService, deleteProductImageService, setMainProductImageService } from "../../../services/product";
+import { addProductImageService, deleteProductImageService, setMainProductImageService } from "../../../services/product";
 import { Alert, Confirm } from "../../../utils/alerts";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 
@@ -17,19 +17,16 @@ const ProductGallery = () => {
     const handleSelectImage = async (e) => {
         setError(null)
         const image = e.target.files[0]
-
-        if (image.type !== "image/png" && image.type !== "image/jpeg" && image.type !== "image/jpg")
-            return setError("لطفا فقط از فایل با فرمت jpg و یا png استفاده کنید")
-        if (image.size > 512000) return setError("حجم تصویر نباید بیشتر از 500 کیلوبایت باشد")
-        setLoading(true)
-
         const formdata = new FormData();
         formdata.append("image", image)
-
-        console.log(formdata);
+        
+        if (image.type != "image/png" && image.type != "image/jpeg" && image.type != "image/jpg")
+            return setError("لطفا فقط از فایل با فرمت jpg و یا png استفاده کنید")
+        if (image.size > 512000) return setError("حجم تصویر نباید بیشتر از 500 کیلوبایت باشد")
+            
+        setLoading(true)
 
         const res = await addProductImageService(selectedProduct.id, formdata)
-        console.log(res);
         setLoading(false)
         if (res.status === 201) {
             Alert('انجام شد', res.data.message, 'success');
